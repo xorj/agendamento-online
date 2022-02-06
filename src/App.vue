@@ -4,4 +4,8 @@
   </div>
 </template>
 
-<style lang="scss"></style>
+<style>
+#app {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+</style>
