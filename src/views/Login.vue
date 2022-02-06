@@ -7,7 +7,7 @@
           <div class="d-flex align-items-center">
             <p class="m-0">Não tem uma conta?</p>
           </div>
-          <b-button class="btn-cadastro px-5 py-2 ml-3">
+          <b-button class="btn-cadastro px-4 py-2 ml-3">
             <b-img :src="require('../assets/user-icon.svg')" />
             Crie uma
           </b-button>
@@ -27,7 +27,7 @@
               <p class="text-end text-dark-gray my-4 mr-1">
                 Esqueceu sua senha?
               </p>
-              <b-button class="btn-entrar text-center w-100 py-3 mb-2"
+              <b-button class="btn-entrar text-center w-100 py-3 mb-3"
                 >Entrar</b-button
               >
             </form>
@@ -69,7 +69,7 @@ export default class Login extends Vue {
   background-color: var(--dark-pink);
 }
 .login-card {
-  min-width: 470px;
+  min-width: 450px;
 }
 
 .text-dark-gray {
