@@ -8,4 +8,8 @@
 #app {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
+
+p {
+  font-size: 16px;
+}
 </style>
