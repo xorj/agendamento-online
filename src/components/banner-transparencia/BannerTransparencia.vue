@@ -24,15 +24,14 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({})
+@Component({
+  name: "BannerTransparencia",
+  components: {},
+})
 export default class BannerTransparencia extends Vue {
-  data() {
-    return {
-      bannerTransparencia: {
-        backgroundImage: `url(${require("../../assets/banner-transparencia.png")})`,
-      },
-    };
-  }
+  bannerTransparencia = {
+    backgroundImage: `url(${require("../../assets/banner-transparencia.png")})`,
+  };
 }
 </script>
 
@@ -41,7 +40,7 @@ export default class BannerTransparencia extends Vue {
   width: 75px;
 }
 .text-gray {
-  color: #d2d2d2;
+  color: var(--light-gray);
 }
 .header {
   font-size: 24px;
@@ -54,7 +53,7 @@ export default class BannerTransparencia extends Vue {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #3a0ca3;
+  background-color: var(--violet);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -65,7 +64,7 @@ export default class BannerTransparencia extends Vue {
   font-weight: 700;
   font-size: 16px;
   padding: 10px 0;
-  background-color: #f72585;
+  background-color: var(--dark-pink);
   width: 80%;
 }
 
