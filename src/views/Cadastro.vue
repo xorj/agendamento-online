@@ -5,6 +5,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({})
+@Component({
+  name: "Cadastro",
+})
 export default class Cadastro extends Vue {}
 </script>
