@@ -18,7 +18,7 @@
         <div class="card-container">
           <b-card class="login-card shadow-sm px-4 py-4">
             <p class="text-dark-pink text-center">Preencha os campos abaixo</p>
-            <form class="w-100">
+            <b-form @submit.stop.prevent="" class="w-100">
               <label for="email" class="text-dark-gray mb-1">Email</label>
               <b-input
                 class="mb-2 px-3 py-4 input-border input-text"
@@ -39,7 +39,7 @@
                 class="btn-entrar text-center w-100 py-3 mb-3"
                 >Entrar</custom-button
               >
-            </form>
+            </b-form>
           </b-card>
         </div>
         <div />
