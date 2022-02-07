@@ -1,9 +1,6 @@
 <template>
   <b-card class="card-cadastro shadow-sm px-4 py-4">
-    <h5 class="text-dark-pink text-center text-bold mb-1">
-      Preencha o campo abaixo
-    </h5>
-    <p class="text-dark-gray text-center">É rápido, simples e seguro</p>
+    <p class="text-dark-pink text-center mb-4">Preencha os campos abaixo</p>
     <ValidationObserver ref="observer">
       <b-form @submit.prevent="onSubmit">
         <ValidationProvider
@@ -99,9 +96,6 @@ export default class CardLogin extends Vue {
 <style>
 .error {
   color: var(--red);
-}
-.text-bold {
-  font-weight: 700;
 }
 
 .text-dark-gray {

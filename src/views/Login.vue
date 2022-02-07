@@ -16,31 +16,7 @@
           </custom-button>
         </div>
         <div class="card-container">
-          <b-card class="login-card shadow-sm px-4 py-4">
-            <p class="text-dark-pink text-center">Preencha os campos abaixo</p>
-            <b-form @submit.stop.prevent="" class="w-100">
-              <label for="email" class="text-dark-gray mb-1">Email</label>
-              <b-input
-                class="mb-2 px-3 py-4 input-border input-text"
-                id="email"
-                type="email"
-              />
-              <label for="senha" class="text-dark-gray mb-1">Senha</label>
-              <b-input
-                class="p-4 input-border input-text"
-                id="senha"
-                type="password"
-              />
-              <p class="text-end text-dark-gray my-4 mr-1">
-                Esqueceu sua senha?
-              </p>
-              <custom-button
-                color="secondary"
-                class="btn-entrar text-center w-100 py-3 mb-3"
-                >Entrar</custom-button
-              >
-            </b-form>
-          </b-card>
+          <card-login />
         </div>
         <div />
       </b-col>
@@ -52,12 +28,13 @@
 import { Component, Vue } from "vue-property-decorator";
 import BannerTransparencia from "@/components/banner-transparencia/BannerTransparencia.vue";
 import CustomButton from "@/components/custom-button/CustomButton.vue";
-
+import CardLogin from "@/components/card-login/CardLogin.vue";
 @Component({
   name: "Login",
   components: {
     BannerTransparencia,
     CustomButton,
+    CardLogin,
   },
 })
 export default class Login extends Vue {
