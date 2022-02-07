@@ -1,20 +1,16 @@
-import axios from "axios";
+import axios from "@/axios";
 
 async function postUsuario(options: any): Promise<any> {
-  const { token, email, senha, nome, dataDeNascimento } = options;
+  const { email, senha, nome } = options;
   const response = await axios.post("/users", {
-    headers: {
-      Authorization: token,
-    },
-    data: {
-      email,
-      senha,
-      nome,
-      dataDeNascimento,
-    },
+    email,
+    password: senha,
+    nome,
   });
 
   return response.data;
 }
-
-export { postUsuario };
+const usuariosServices = {
+  postUsuario,
+};
+export default usuariosServices;
