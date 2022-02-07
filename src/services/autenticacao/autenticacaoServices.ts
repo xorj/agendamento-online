@@ -12,4 +12,7 @@ async function getToken(options: any): Promise<any> {
   return response.data;
 }
 
-export { getToken };
+const autenticacaoServices = {
+  getToken,
+};
+export default autenticacaoServices;
