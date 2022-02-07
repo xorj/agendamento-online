@@ -10,7 +10,7 @@
       <p class="text text-white">Rápido e seguro</p>
       <p class="text text-gray">
         Evite filas e aglomeração. <br />
-        O ser bem é o bem de todos
+        O seu bem é o bem de todos
       </p>
       <custom-button
         :disabled="disableTransparenciaLink"
