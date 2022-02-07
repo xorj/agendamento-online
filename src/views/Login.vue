@@ -15,18 +15,22 @@
             Crie uma
           </custom-button>
         </div>
-        <div class="card-login">
-          <b-card class="shadow-sm px-4 py-4">
+        <div class="card-container">
+          <b-card class="login-card shadow-sm px-4 py-4">
             <p class="text-dark-pink text-center">Preencha os campos abaixo</p>
-            <form>
+            <form class="w-100">
               <label for="email" class="text-dark-gray mb-1">Email</label>
               <b-input
-                class="mb-2 px-3 py-4 input-border"
+                class="mb-2 px-3 py-4 input-border input-text"
                 id="email"
                 type="email"
               />
               <label for="senha" class="text-dark-gray mb-1">Senha</label>
-              <b-input class="p-4 input-border" id="senha" type="password" />
+              <b-input
+                class="p-4 input-border input-text"
+                id="senha"
+                type="password"
+              />
               <p class="text-end text-dark-gray my-4 mr-1">
                 Esqueceu sua senha?
               </p>
@@ -64,6 +68,9 @@ export default class Login extends Vue {
 </script>
 
 <style scoped>
+.input-text {
+  font-weight: 300;
+}
 .input-border {
   border: 1px solid var(--light-gray);
 }
@@ -72,8 +79,8 @@ export default class Login extends Vue {
   color: white;
 }
 .login-card {
-  width: 450px;
-  max-width: 80vw;
+  width: 471px;
+  min-width: 60%;
 }
 
 .text-dark-gray {
@@ -89,7 +96,7 @@ export default class Login extends Vue {
   width: 100%;
   display: relative;
 }
-.card-login {
+.card-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
