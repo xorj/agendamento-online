@@ -4,8 +4,8 @@
       Preencha o campo abaixo
     </h5>
     <p class="text-dark-gray text-center">É rápido, simples e seguro</p>
-    <ValidationObserver ref="observer">
-      <b-form @submit.prevent="onSubmit">
+    <ValidationObserver ref="observer" v-slot="{ invalid }">
+      <b-form>
         <ValidationProvider
           rules="required|email"
           v-slot="{ errors }"
@@ -23,6 +23,7 @@
           </label>
         </ValidationProvider>
         <ValidationProvider
+          v-if="index > 0"
           rules="required"
           v-slot="{ errors }"
           class="input-validation"
@@ -39,6 +40,7 @@
           </label>
         </ValidationProvider>
         <ValidationProvider
+          v-if="index > 0"
           rules="required|min:8"
           vid="senha"
           v-slot="{ errors }"
@@ -56,6 +58,7 @@
         </ValidationProvider>
 
         <ValidationProvider
+          v-if="index > 0"
           rules="required|confirmed:senha"
           v-slot="{ errors }"
         >
@@ -71,6 +74,7 @@
           </label>
         </ValidationProvider>
         <custom-button
+          :disabled="invalid"
           color="secondary"
           class="btn-entrar text-center w-100 py-3 mt-4 mb-3"
           @click="continuar"
@@ -82,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email, min, confirmed } from "vee-validate/dist/rules";
 import CustomButton from "@/components/custom-button/CustomButton.vue";
@@ -122,24 +126,29 @@ export default class CardCadastro extends Vue {
   senha = "";
   confirmarSenha = "";
   index = 0;
-  isFormValid = false;
 
-  async onSumbit(): Promise<void> {
-    const observerRef: unknown = this.$refs.observer;
+  async cadastrar(): Promise<void> {
+    const observerRef = this.$refs.observer;
 
     const validForm = await (
       observerRef as InstanceType<typeof ValidationProvider>
     ).validate();
-    console.log(validForm);
-    if (this.index === 1) {
-      //@ts-ignore
+
+    if (this.index === 1 && validForm) {
+      await this.$store
+        .dispatch("cadastro", {
+          email: this.email,
+          senha: this.senha,
+          nome: this.nome,
+        })
+        .then(() => this.$router.push("/agendamento"));
     }
   }
   continuar(): void {
     if (this.index === 0) {
       this.index++;
     } else {
-      this.onSumbit();
+      this.cadastrar();
     }
   }
 }
@@ -147,6 +156,7 @@ export default class CardCadastro extends Vue {
 
 <style>
 .error {
+  font-size: 0.9rem;
   color: var(--red);
 }
 .text-bold {

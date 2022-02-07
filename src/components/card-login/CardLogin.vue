@@ -31,11 +31,14 @@
             <span class="error">{{ errors[0] }}</span>
           </label>
         </ValidationProvider>
+        <span v-if="erroAoLogar" class="error">{{
+          erroAoLogar ? "Email e/ou senha incorretos" : ""
+        }}</span>
         <custom-button
           color="secondary"
           class="btn-entrar text-center w-100 py-3 mt-4 mb-3"
-          @click="continuar"
-          >Continuar</custom-button
+          @click="logar"
+          >Entrar</custom-button
         >
       </b-form>
     </ValidationObserver>
@@ -43,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 import CustomButton from "@/components/custom-button/CustomButton.vue";
@@ -60,7 +63,7 @@ extend("required", {
 });
 
 @Component({
-  name: "CardCadastro",
+  name: "CardLogin",
   components: {
     ValidationProvider,
     ValidationObserver,
@@ -69,25 +72,28 @@ extend("required", {
 })
 export default class CardLogin extends Vue {
   email = "";
-  nome = "";
   senha = "";
-  confirmarSenha = "";
-  index = 0;
-  isFormValid = false;
-
-  async onSumbit(): Promise<void> {
-    const observerRef: unknown = this.$refs.observer;
+  erroAoLogar = false;
+  async logar(): Promise<void> {
+    const observerRef = this.$refs.observer;
 
     const validForm = await (
       observerRef as InstanceType<typeof ValidationProvider>
     ).validate();
-    console.log(validForm);
-  }
-  continuar(): void {
-    if (this.index === 0) {
-      this.index++;
-    } else {
-      this.onSumbit();
+
+    if (validForm) {
+      this.erroAoLogar = false;
+      await this.$store
+        .dispatch("login", {
+          email: this.email,
+          senha: this.senha,
+        })
+        .then(
+          () => this.$router.push("/agendamento"),
+          () => {
+            this.erroAoLogar = true;
+          }
+        );
     }
   }
 }
@@ -95,6 +101,7 @@ export default class CardLogin extends Vue {
 
 <style>
 .error {
+  font-size: 0.9rem;
   color: var(--red);
 }
 
