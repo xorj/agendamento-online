@@ -6,6 +6,7 @@
 
 <style>
 #app {
+  --red: #ff4646;
   --violet: #3a0ca3;
   --dark-pink: #f72585;
   --dark-gray: #4a4a4a;
