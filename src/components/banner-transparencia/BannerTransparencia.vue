@@ -12,7 +12,13 @@
         Evite filas e aglomeração. <br />
         O ser bem é o bem de todos
       </p>
-      <b-button class="btn-transparencia mt-3">TRANSPARÊNCIA</b-button>
+      <custom-button
+        :disabled="disableTransparenciaLink"
+        @click="goToTransparencia"
+        color="secondary"
+        class="btn-transparencia mt-3"
+        >TRANSPARÊNCIA</custom-button
+      >
     </div>
     <div class="instituicoes mb-5 px-4">
       <b-img :src="require('../../assets/lais.svg')" />
@@ -23,15 +29,25 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
+import CustomButton from "@/components/custom-button/CustomButton.vue";
 @Component({
   name: "BannerTransparencia",
-  components: {},
+  components: { CustomButton },
 })
 export default class BannerTransparencia extends Vue {
   bannerTransparencia = {
     backgroundImage: `url(${require("../../assets/banner-transparencia.png")})`,
   };
+
+  get disableTransparenciaLink(): boolean {
+    return this.$route.path === "/transparencia";
+  }
+
+  goToTransparencia(): void {
+    if (!this.disableTransparenciaLink) {
+      this.$router.push("/transparencia");
+    }
+  }
 }
 </script>
 
@@ -43,7 +59,7 @@ export default class BannerTransparencia extends Vue {
   color: var(--light-gray);
 }
 .header {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 .text {
@@ -62,7 +78,7 @@ export default class BannerTransparencia extends Vue {
 .btn-transparencia {
   color: white;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px 0;
   background-color: var(--dark-pink);
   width: 80%;
