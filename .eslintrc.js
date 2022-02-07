@@ -14,6 +14,7 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    "@typescript-eslint/ban-ts-comment": "off",
     "prettier/prettier": [
       "error",
       {
