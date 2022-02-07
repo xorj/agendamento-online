@@ -7,15 +7,18 @@
           <div class="d-flex align-items-center">
             <p class="m-0">Não tem uma conta?</p>
           </div>
-          <b-button class="btn-cadastro px-4 py-2 ml-3">
+          <custom-button
+            @click="goToCadastro"
+            class="btn-cadastro px-4 py-2 ml-3"
+          >
             <b-img :src="require('../assets/user-icon.svg')" />
             Crie uma
-          </b-button>
+          </custom-button>
         </div>
         <div class="card-login">
-          <b-card class="login-card px-4 py-4">
+          <b-card class="shadow-sm px-4 py-4">
             <p class="text-dark-pink text-center">Preencha os campos abaixo</p>
-            <form action="submit" submit.prevent="">
+            <form>
               <label for="email" class="text-dark-gray mb-1">Email</label>
               <b-input
                 class="mb-2 px-3 py-4 input-border"
@@ -27,8 +30,10 @@
               <p class="text-end text-dark-gray my-4 mr-1">
                 Esqueceu sua senha?
               </p>
-              <b-button class="btn-entrar text-center w-100 py-3 mb-3"
-                >Entrar</b-button
+              <custom-button
+                color="secondary"
+                class="btn-entrar text-center w-100 py-3 mb-3"
+                >Entrar</custom-button
               >
             </form>
           </b-card>
@@ -42,19 +47,18 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BannerTransparencia from "@/components/banner-transparencia/BannerTransparencia.vue";
+import CustomButton from "@/components/custom-button/CustomButton.vue";
+
 @Component({
   name: "Login",
   components: {
     BannerTransparencia,
+    CustomButton,
   },
 })
 export default class Login extends Vue {
-  data() {
-    return {
-      bannerTransparencia: {
-        backgroundImage: `url(${require("../assets/banner-transparencia.png")})`,
-      },
-    };
+  goToCadastro(): void {
+    this.$router.push("/cadastro");
   }
 }
 </script>
@@ -66,10 +70,10 @@ export default class Login extends Vue {
 .btn-entrar {
   font-weight: 700;
   color: white;
-  background-color: var(--dark-pink);
 }
 .login-card {
-  min-width: 450px;
+  width: 450px;
+  max-width: 80vw;
 }
 
 .text-dark-gray {
@@ -92,7 +96,7 @@ export default class Login extends Vue {
   align-items: center;
 }
 .btn-cadastro {
-  font-size: 16px;
+  font-size: 1rem;
   background-color: var(--violet);
 }
 .link-cadastro-container {
