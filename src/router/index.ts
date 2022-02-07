@@ -7,12 +7,22 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Login",
-    component: () => import("@/views/Login.vue"),
+    component: () =>
+      import(/* webpackChunkName: "Login" */ "@/views/Login.vue"),
   },
   {
-    path: "/Cadastro",
+    path: "/cadastro",
     name: "Cadastro",
-    component: () => import("@/views/Cadastro.vue"),
+    component: () =>
+      import(/* webpackChunkName: "Cadastro" */ "@/views/Cadastro.vue"),
+  },
+  {
+    path: "/transparencia",
+    name: "Transparência",
+    component: () =>
+      import(
+        /* webpackChunkName: "Transparencia" */ "@/views/Transparencia.vue"
+      ),
   },
 ];
 
