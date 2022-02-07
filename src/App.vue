@@ -12,8 +12,30 @@
   --light-gray: #b4b4b4;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
-
 p {
-  font-size: 16px;
+  font-size: 1rem;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.btn {
+  box-shadow: none !important;
+  color: white;
+  font-weight: 700;
+}
+.btn-primary {
+  background-color: var(--violet) !important;
+  border-color: var(--violet) !important;
+}
+.btn-secondary {
+  background-color: var(--dark-pink) !important;
+  border-color: var(--dark-pink) !important;
 }
 </style>
