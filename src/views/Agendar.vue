@@ -1,11 +1,12 @@
-<template><div>Agendar</div></template>
+<template>
+  <div class="content-wrapper m-4">Agendar</div>
+</template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   name: "Agendar",
-  components: {},
 })
 export default class Agendar extends Vue {}
 </script>
