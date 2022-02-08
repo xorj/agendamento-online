@@ -24,6 +24,12 @@ const routes: Array<RouteConfig> = [
         /* webpackChunkName: "Transparencia" */ "@/views/Transparencia.vue"
       ),
   },
+  {
+    path: "/agendamento",
+    name: "Agendamento",
+    component: () =>
+      import(/* webpackChunkName: "Agendamento" */ "@/views/Agendamento.vue"),
+  },
 ];
 
 const router = new VueRouter({
