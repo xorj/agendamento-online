@@ -5,14 +5,19 @@
 </template>
 
 <style>
-#app {
+:root {
   --red: #ff4646;
   --violet: #3a0ca3;
   --dark-pink: #f72585;
   --dark-gray: #4a4a4a;
+  --transparent-gray: #92929257;
   --light-gray: #b4b4b4;
+}
+
+#app {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
+
 p {
   font-size: 1rem;
 }
