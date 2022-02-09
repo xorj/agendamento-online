@@ -1,3 +1,4 @@
+import IAgendamento from "@/interfaces/IAgendamento";
 import agendamentosServices from "@/services/agendamentos/agendamentosServices";
 import autenticacaoServices from "@/services/autenticacao/autenticacaoServices";
 import usuariosServices from "@/services/usuarios/usuariosServices";
@@ -39,6 +40,13 @@ const actions = {
   }): Promise<void> {
     const response =
       await agendamentosServices.getAgendamentosDisponibilidade();
+    return response;
+  },
+  async cancelarAgendamento(
+    { commit }: { commit: Commit },
+    options: { token: string; id: number }
+  ): Promise<void> {
+    const response = await agendamentosServices.cancelarAgendamento(options);
     return response;
   },
 };

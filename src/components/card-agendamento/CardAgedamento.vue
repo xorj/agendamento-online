@@ -45,12 +45,14 @@
     </div>
     <div class="d-flex flex-auto button-container">
       <c-button
-        :class="['rounded-0', 'datalhes', agendado === 1 ? 'w-100' : 'w-50']"
+        v-if="agendado === 0"
+        class="rounded-0 detalhes w-50"
         color="secondary"
         >Detalhes</c-button
       >
       <c-button
         v-if="agendado === 0"
+        @click="cancelarAgendamento"
         class="rounded-0 cancelar w-50"
         color="secondary"
         >Cancelar</c-button
@@ -97,6 +99,14 @@ export default class CardAgendamento extends Vue {
       minutos = arrayHora[1];
     return `${hora}h${minutos}`;
   }
+  async cancelarAgendamento() {
+    const token = this.$store.state.token;
+    this.$store.dispatch("cancelarAgendamento", {
+      token,
+      id: this.agendamento.id,
+      agendamento: this.agendamento,
+    });
+  }
 }
 </script>
 
@@ -107,9 +117,6 @@ export default class CardAgendamento extends Vue {
 .datalhes {
   background-color: var(--dark-pink) !important;
   border-radius: 0 0 0 5px !important;
-}
-.datalhes.w-100 {
-  border-radius: 0 0 5px 5px !important;
 }
 .cancelar {
   background-color: var(--red-cancelado) !important;
