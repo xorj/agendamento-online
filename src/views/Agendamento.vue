@@ -33,8 +33,8 @@
                 class="dropdown-icon"
               />
             </template>
-            <b-dropdown-item href="#">Editar</b-dropdown-item>
-            <b-dropdown-item href="#">Sair</b-dropdown-item>
+            <b-dropdown-item href="#">Meu Perfil</b-dropdown-item>
+            <b-dropdown-item @click="logout">Sair</b-dropdown-item>
           </b-dropdown>
         </div>
       </div>
@@ -104,12 +104,16 @@ import MeusAgendamentos from "./MeusAgendamentos.vue";
 export default class Agendamento extends Vue {
   opcaoSelecionada = 0;
 
+  get nomeDoUsuario(): string {
+    return this.$store.state.user.nome;
+  }
+
   selecionar(index: number): void {
     this.opcaoSelecionada = index;
   }
-
-  get nomeDoUsuario(): string {
-    return this.$store.state.user.nome;
+  async logout(): Promise<void> {
+    await this.$store.dispatch("logout");
+    this.$router.push("/");
   }
 }
 </script>
@@ -206,9 +210,6 @@ export default class Agendamento extends Vue {
   z-index: 1000;
   height: 100%;
   border-right: 1px solid var(--dark-pink);
-  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   display: flex;
   flex-direction: column;
   width: 300px;
