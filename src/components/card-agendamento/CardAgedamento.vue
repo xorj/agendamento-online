@@ -43,14 +43,15 @@
         </p>
       </div>
     </div>
-    <div class="d-flex flex-auto">
+    <div class="d-flex flex-auto button-container">
       <c-button
-        class="rounded-0 w-50 detalhes btn-agendamento"
+        :class="['rounded-0', 'datalhes', agendado === 1 ? 'w-100' : 'w-50']"
         color="secondary"
         >Detalhes</c-button
       >
       <c-button
-        class="rounded-0 w-50 cancelar btn-agendamento"
+        v-if="agendado === 0"
+        class="rounded-0 cancelar w-50"
         color="secondary"
         >Cancelar</c-button
       >
@@ -71,7 +72,6 @@ export default class CardAgendamento extends Vue {
   @Prop({}) agendamento!: IAgendamento;
   listaStatus = ["Agendado", "Cancelado"];
   get tipoExame(): string {
-    console.log("Agendamento", this.agendamento);
     return this.agendamento.tipo_exame;
   }
 
@@ -101,14 +101,20 @@ export default class CardAgendamento extends Vue {
 </script>
 
 <style>
-.btn-agendamento {
+.button-container {
   height: 55px;
 }
 .datalhes {
   background-color: var(--dark-pink) !important;
+  border-radius: 0 0 0 5px !important;
+}
+.datalhes.w-100 {
+  border-radius: 0 0 5px 5px !important;
 }
 .cancelar {
   background-color: var(--red-cancelado) !important;
+  border-color: var(--red-cancelado) !important;
+  border-radius: 0 0 5px 0 !important;
 }
 .space-between {
   justify-content: space-between;
@@ -138,7 +144,6 @@ export default class CardAgendamento extends Vue {
 }
 .main-wrapper {
   background-color: white;
-  flex: auto;
-  max-width: 320px;
+  width: 320px;
 }
 </style>
