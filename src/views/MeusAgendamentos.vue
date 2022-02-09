@@ -17,6 +17,7 @@
         v-if="agendamentosFiltrados.length"
       >
         <card-agendamento
+          @agendamentoCancelado="loadAgendamentos"
           :key="agendamento.id + index"
           v-for="(agendamento, index) in agendamentosFiltrados"
           :agendamento="agendamento"
@@ -98,8 +99,7 @@ export default class MeusAgendamentos extends Vue {
       }
     });
   }
-
-  async created(): Promise<void> {
+  async loadAgendamentos(): Promise<void> {
     const token = this.$store.state.token;
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
       token: token,
@@ -107,6 +107,9 @@ export default class MeusAgendamentos extends Vue {
     });
     this.agendamentos = agendamentos;
     this.agendamentosFiltrados = this.agendamentos;
+  }
+  async created(): Promise<void> {
+    await this.loadAgendamentos();
     await this.setTotalDePaginasEFiltros();
   }
 }

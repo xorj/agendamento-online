@@ -101,11 +101,12 @@ export default class CardAgendamento extends Vue {
   }
   async cancelarAgendamento(): Promise<void> {
     const token = this.$store.state.token;
-    this.$store.dispatch("cancelarAgendamento", {
+    await this.$store.dispatch("cancelarAgendamento", {
       token,
       id: this.agendamento.id,
       agendamento: this.agendamento,
     });
+    this.$emit("agendamentoCancelado");
   }
 }
 </script>
