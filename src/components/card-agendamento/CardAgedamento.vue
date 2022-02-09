@@ -45,12 +45,14 @@
     </div>
     <div class="d-flex flex-auto button-container">
       <c-button
+        @click="abrirComprovante"
         v-if="agendado === 0"
         class="rounded-0 detalhes w-50"
         color="secondary"
         >Detalhes</c-button
       >
       <c-button
+        :disabled="true"
         v-if="agendado === 0"
         @click="cancelarAgendamento"
         class="rounded-0 cancelar w-50"
@@ -58,6 +60,7 @@
         >Cancelar</c-button
       >
     </div>
+    <comprovante-agendamento v-model="showComprovante" />
   </div>
 </template>
 
@@ -65,14 +68,16 @@
 import IAgendamento from "@/interfaces/IAgendamento";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import CButton from "@/components/custom-button/CustomButton.vue";
-
+import ComprovanteAgendamento from "@/components/comprovante-agendamento/ComprovanteAgendamento.vue";
 @Component({
   name: "CardAgendamento",
-  components: { CButton },
+  components: { CButton, ComprovanteAgendamento },
 })
 export default class CardAgendamento extends Vue {
   @Prop({}) agendamento!: IAgendamento;
+  showComprovante = false;
   listaStatus = ["Agendado", "Cancelado"];
+
   get tipoExame(): string {
     return this.agendamento.tipo_exame;
   }
@@ -99,6 +104,10 @@ export default class CardAgendamento extends Vue {
       minutos = arrayHora[1];
     return `${hora}h${minutos}`;
   }
+  abrirComprovante() {
+    this.showComprovante = true;
+  }
+
   async cancelarAgendamento(): Promise<void> {
     const token = this.$store.state.token;
     await this.$store.dispatch("cancelarAgendamento", {
@@ -115,7 +124,7 @@ export default class CardAgendamento extends Vue {
 .button-container {
   height: 55px;
 }
-.datalhes {
+.detalhes {
   background-color: var(--dark-pink) !important;
   border-radius: 0 0 0 5px !important;
 }
