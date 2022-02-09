@@ -12,71 +12,130 @@
         >
         </b-form-select>
       </div>
-      <div class="agendamentos-wrapper">
+      <div
+        class="agendamentos-wrapper my-4"
+        v-if="agendamentosFiltrados.length"
+      >
         <card-agendamento
-          :key="agendamento.id"
-          v-for="agendamento in agendamentos"
+          :key="agendamento.id + index"
+          v-for="(agendamento, index) in agendamentosFiltrados"
           :agendamento="agendamento"
         />
       </div>
+      <div class="my-4" v-else>
+        <h3 class="nenhum-agendamento">Nenhum agendamento para mostar</h3>
+      </div>
       <div class="d-flex justify-content-end">
-        <b-pagination></b-pagination>
+        <pagination
+          @changePagina="setPagina"
+          :paginaAtual="paginaAtual"
+          :totalDePaginas="totalDePaginas"
+        />
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import CardAgendamento from "@/components/card-agendamento/CardAgedamento.vue";
 import IAgendamento from "@/interfaces/IAgendamento";
-
+import Pagination from "@/components/pagination/Pagination.vue";
 @Component({
   name: "MeusAgendamentos",
   components: {
     CardAgendamento,
+    Pagination,
   },
 })
 export default class MeusAgendamentos extends Vue {
   lugarFiltro: string | null = null;
-  paginaAtual = 0;
+  paginaAtual = 1;
+  totalDePaginas = 2;
   agendamentos: Array<IAgendamento> = [];
+  agendamentosFiltrados: Array<IAgendamento> = [];
   filtrosLugares = [{ value: null, text: "Local de exame" }];
 
-  get agendamentosFiltrados(): Array<IAgendamento> {
+  @Watch("paginaAtual")
+  async handleNewPagina(newValue: number): Promise<void> {
+    const token = this.$store.state.token;
+    this.agendamentos = await this.$store.dispatch("getAgendamentos", {
+      token: token,
+      page: newValue,
+    });
+    this.setOpcoesFiltradas();
+  }
+
+  setOpcoesFiltradas(): void {
     if (this.lugarFiltro) {
-      return this.agendamentos.filter((agendamento: IAgendamento) => {
-        return agendamento.localizacao === this.lugarFiltro;
-      });
+      this.agendamentosFiltrados = this.agendamentos.filter(
+        (agendamento: IAgendamento) => {
+          return agendamento.localizacao === this.lugarFiltro;
+        }
+      );
+    } else {
+      this.agendamentosFiltrados = this.agendamentos;
     }
-    return this.agendamentos;
+  }
+
+  setPagina(pagina: number): void {
+    this.paginaAtual = pagina;
+  }
+
+  async setTotalDePaginasEFiltros(): Promise<void> {
+    const token = this.$store.state.token;
+    let agendamentos = await this.$store.dispatch("getAgendamentos", {
+      token: token,
+    });
+    this.totalDePaginas = Math.floor(agendamentos.length / 10) + 2;
+    agendamentos.forEach((agendamento: any) => {
+      let option = {
+        value: agendamento.localizacao,
+        text: agendamento.localizacao,
+      };
+      const equalText = (el: any) => el.text === option.text;
+      if (!this.filtrosLugares.some(equalText)) {
+        this.filtrosLugares.push(option);
+      }
+    });
   }
 
   async created(): Promise<void> {
     const token = this.$store.state.token;
-    this.agendamentos = await this.$store.dispatch("getAgendamentos", {
+    let agendamentos = await this.$store.dispatch("getAgendamentos", {
       token: token,
+      page: this.paginaAtual,
     });
+    this.agendamentos = agendamentos;
+    this.agendamentosFiltrados = this.agendamentos;
+    await this.setTotalDePaginasEFiltros();
   }
 }
 </script>
 
 <style>
+.nenhum-agendamento {
+  font-weight: 600;
+  text-align: center;
+  color: var(--violet);
+}
+
 .agendamentos-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  align-content: stretch;
+  display: grid;
+  max-width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 .filtro-wrapper {
   display: flex;
   align-items: center;
 }
 .filtro-lugar {
-  width: 20rem;
+  width: 15rem;
   border-color: var(--violet);
   color: var(--violet);
+  background: #fff url("../assets/chevron-down.svg") no-repeat right 0.75rem
+    center/8px 10px !important;
 }
 .title {
   font-size: 1.4rem;
