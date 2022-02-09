@@ -99,7 +99,7 @@ export default class CardAgendamento extends Vue {
       minutos = arrayHora[1];
     return `${hora}h${minutos}`;
   }
-  async cancelarAgendamento() {
+  async cancelarAgendamento(): Promise<void> {
     const token = this.$store.state.token;
     this.$store.dispatch("cancelarAgendamento", {
       token,

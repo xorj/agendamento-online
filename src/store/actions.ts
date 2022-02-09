@@ -1,4 +1,3 @@
-import IAgendamento from "@/interfaces/IAgendamento";
 import agendamentosServices from "@/services/agendamentos/agendamentosServices";
 import autenticacaoServices from "@/services/autenticacao/autenticacaoServices";
 import usuariosServices from "@/services/usuarios/usuariosServices";

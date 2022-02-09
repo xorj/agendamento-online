@@ -1,5 +1,5 @@
 import axios from "@/axios";
-import IAgendamento from "@/interfaces/IAgendamento";
+
 async function getAgendamentosUsuario(options: {
   token: string;
   page?: number;
