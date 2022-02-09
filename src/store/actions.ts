@@ -13,6 +13,10 @@ const actions = {
     commit("SET_TOKEN", response.accessToken);
     commit("SET_USER", response.user);
   },
+  async logout({ commit }: { commit: Commit }): Promise<void> {
+    commit("SET_TOKEN", "");
+    commit("SET_USER", {});
+  },
   async cadastro(
     { commit }: { commit: Commit },
     options: { email: string; senha: string; nome: string }
@@ -23,9 +27,18 @@ const actions = {
   },
   async getAgendamentos(
     { commit }: { commit: Commit },
-    options: { token: string }
+    options: { token: string; page?: number }
   ): Promise<void> {
     const response = await agendamentosServices.getAgendamentosUsuario(options);
+    return response;
+  },
+  async getDisponibilidadeAgendamentos({
+    commit,
+  }: {
+    commit: Commit;
+  }): Promise<void> {
+    const response =
+      await agendamentosServices.getAgendamentosDisponibilidade();
     return response;
   },
 };
