@@ -1,3 +1,4 @@
+import agendamentosServices from "@/services/agendamentos/agendamentosServices";
 import autenticacaoServices from "@/services/autenticacao/autenticacaoServices";
 import usuariosServices from "@/services/usuarios/usuariosServices";
 
@@ -19,6 +20,13 @@ const actions = {
     const response = await usuariosServices.postUsuario(options);
     commit("SET_TOKEN", response.accessToken);
     commit("SET_USER", response.user);
+  },
+  async getAgendamentos(
+    { commit }: { commit: Commit },
+    options: { token: string }
+  ): Promise<void> {
+    const response = await agendamentosServices.getAgendamentosUsuario(options);
+    return response;
   },
 };
 
