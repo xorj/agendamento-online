@@ -7,11 +7,13 @@
 <style>
 :root {
   --red: #ff4646;
+  --red-cancelado: #dc2626;
   --violet: #3a0ca3;
   --dark-pink: #f72585;
   --dark-gray: #4a4a4a;
   --transparent-gray: #92929257;
   --light-gray: #b4b4b4;
+  --green: #00cf9f;
 }
 
 #app {
