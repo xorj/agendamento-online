@@ -26,7 +26,7 @@
       <div class="my-4" v-else>
         <h3 class="nenhum-agendamento">Nenhum agendamento disponívels</h3>
       </div>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end mb-4 py-4">
         <pagination
           @changePagina="setPagina"
           :paginaAtual="paginaAtual"
@@ -87,7 +87,7 @@ export default class MeusAgendamentos extends Vue {
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
       token: token,
     });
-    this.totalDePaginas = Math.floor(agendamentos.length / 10) + 2;
+    this.totalDePaginas = Math.floor(agendamentos.length / 10) + 1;
     agendamentos.forEach((agendamento: any) => {
       let option = {
         value: agendamento.localizacao,
@@ -125,7 +125,7 @@ export default class MeusAgendamentos extends Vue {
 .agendamentos-wrapper {
   display: grid;
   max-width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-column-gap: 20px;
   grid-row-gap: 20px;
 }
