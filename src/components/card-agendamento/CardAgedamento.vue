@@ -45,14 +45,13 @@
     </div>
     <div class="d-flex flex-auto button-container">
       <c-button
-        @click="abrirComprovante"
+        v-b-modal.modal-comprovante
         v-if="agendado === 0"
         class="rounded-0 detalhes w-50"
         color="secondary"
         >Detalhes</c-button
       >
       <c-button
-        :disabled="true"
         v-if="agendado === 0"
         @click="cancelarAgendamento"
         class="rounded-0 cancelar w-50"
@@ -60,7 +59,10 @@
         >Cancelar</c-button
       >
     </div>
-    <comprovante-agendamento v-model="showComprovante" />
+    <comprovante-agendamento
+      id="modal-comprovante"
+      :agendamento="agendamento"
+    />
   </div>
 </template>
 
@@ -75,7 +77,6 @@ import ComprovanteAgendamento from "@/components/comprovante-agendamento/Comprov
 })
 export default class CardAgendamento extends Vue {
   @Prop({}) agendamento!: IAgendamento;
-  showComprovante = false;
   listaStatus = ["Agendado", "Cancelado"];
 
   get tipoExame(): string {
@@ -103,9 +104,6 @@ export default class CardAgendamento extends Vue {
     let hora = arrayHora[0],
       minutos = arrayHora[1];
     return `${hora}h${minutos}`;
-  }
-  abrirComprovante() {
-    this.showComprovante = true;
   }
 
   async cancelarAgendamento(): Promise<void> {

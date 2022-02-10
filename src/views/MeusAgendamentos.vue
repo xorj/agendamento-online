@@ -146,7 +146,7 @@ export default class MeusAgendamentos extends Vue {
   color: var(--violet);
 }
 .content-wrapper {
-  height: 200%;
+  height: 100%;
   width: auto;
   background-image: radial-gradient(
       120% 50% at top left,
