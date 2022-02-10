@@ -118,7 +118,7 @@ export default class CardAgendamento extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 .button-container {
   height: 55px;
 }
