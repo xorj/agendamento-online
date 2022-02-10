@@ -20,10 +20,6 @@
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
-p {
-  font-size: 1rem;
-}
-
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,
