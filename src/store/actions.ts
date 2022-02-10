@@ -32,13 +32,40 @@ const actions = {
     const response = await agendamentosServices.getAgendamentosUsuario(options);
     return response;
   },
-  async getDisponibilidadeAgendamentos({
+  async getDisponibilidadeAgendamentos(
+    {
+      commit,
+    }: {
+      commit: Commit;
+    },
+    options?: {
+      campanha: null;
+      municipio: null;
+      grupoDeAtendimento: null;
+      data: string;
+      tipoDeExame: string;
+      page?: number;
+    }
+  ): Promise<void> {
+    const response = await agendamentosServices.getAgendamentosDisponibilidade(
+      options
+    );
+    return response;
+  },
+  async getCampanhas({
     commit,
   }: {
     commit: Commit;
-  }): Promise<void> {
-    const response =
-      await agendamentosServices.getAgendamentosDisponibilidade();
+  }): Promise<Array<{ id: string; nome: string }>> {
+    const response = await agendamentosServices.getCampanhas();
+    return response;
+  },
+  async getGruposDeAtendimento({
+    commit,
+  }: {
+    commit: Commit;
+  }): Promise<Array<{ id: string; nome: string; idade_minima: number }>> {
+    const response = await agendamentosServices.getGruposDeAtendimento();
     return response;
   },
   async cancelarAgendamento(
@@ -46,6 +73,22 @@ const actions = {
     options: { token: string; id: number }
   ): Promise<void> {
     const response = await agendamentosServices.cancelarAgendamento(options);
+    return response;
+  },
+  async agendarExame(
+    { commit }: { commit: Commit },
+    options: {
+      usuario_id: number;
+      campanha_id: number;
+      grupo_atendimento_id: number;
+      municipio: string;
+      localizacao: string;
+      data: string;
+      hora: string;
+      tipo_exame: string;
+    }
+  ): Promise<void> {
+    const response = await agendamentosServices.postAgendamento(options);
     return response;
   },
 };
