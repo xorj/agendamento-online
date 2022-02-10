@@ -24,7 +24,7 @@
         />
       </div>
       <div class="my-4" v-else>
-        <h3 class="nenhum-agendamento">Nenhum agendamento para mostrar</h3>
+        <h3 class="nenhum-agendamento">Nenhum agendamento disponívels</h3>
       </div>
       <div class="d-flex justify-content-end">
         <pagination
