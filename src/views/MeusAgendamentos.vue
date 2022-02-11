@@ -144,7 +144,7 @@ export default class MeusAgendamentos extends Vue {
     center/8px 10px !important;
 }
 .title {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--violet);
 }
