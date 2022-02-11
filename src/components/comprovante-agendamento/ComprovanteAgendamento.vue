@@ -91,27 +91,35 @@ import CButton from "@/components/custom-button/CustomButton.vue";
 export default class ComprovanteAgendamento extends Vue {
   @Prop() agendamento!: IAgendamento;
   get dataExame(): string {
-    const arrayData = this.agendamento.data.split("-");
-    let mes = arrayData[0],
-      dia = arrayData[1],
-      ano = arrayData[2];
-    return `${dia}/${mes}/${ano}`;
+    const arrayData = this.agendamento?.data?.split("-");
+    if (arrayData?.length) {
+      let mes = arrayData[0],
+        dia = arrayData[1],
+        ano = arrayData[2];
+      return `${dia}/${mes}/${ano}`;
+    } else {
+      return "";
+    }
   }
   get horaExame(): string {
-    const arrayHora = this.agendamento.hora.split(":");
-    let hora = arrayHora[0],
-      minutos = arrayHora[1];
-    return `${hora}h${minutos}`;
+    const arrayHora = this.agendamento?.hora?.split(":");
+    if (arrayHora?.length) {
+      let hora = arrayHora[0],
+        minutos = arrayHora[1];
+      return `${hora}h${minutos}`;
+    } else {
+      return "";
+    }
   }
   get statusAgendamento(): string {
-    if (this.agendamento.status === "AGENDADO") {
+    if (this.agendamento?.status === "AGENDADO") {
       return "Agendado";
     }
     return "Cancelado";
   }
 
   get localAgendamento(): string {
-    return this.agendamento.localizacao;
+    return this.agendamento?.localizacao;
   }
   get nomeUsuario(): string {
     return this.$store.state.user.nome;
@@ -120,7 +128,7 @@ export default class ComprovanteAgendamento extends Vue {
     const token = this.$store.state.token;
     await this.$store.dispatch("cancelarAgendamento", {
       token,
-      id: this.agendamento.id,
+      id: this.agendamento?.id,
       agendamento: this.agendamento,
     });
     this.$parent.$emit("agendamentoCancelado");
