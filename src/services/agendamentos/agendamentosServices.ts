@@ -3,14 +3,16 @@ import axios from "@/axios";
 async function getAgendamentosUsuario(options: {
   token: string;
   page?: number;
+  localizacao?: string;
 }): Promise<any> {
-  const { token, page } = options;
+  const { token, page, localizacao } = options;
   const response = await axios.get("/agendamentos", {
     headers: {
       Authorization: "Bearer" + token,
     },
     params: {
       _page: page,
+      localizacao: localizacao,
     },
   });
   return response.data;
@@ -57,13 +59,12 @@ async function getAgendamentosDisponibilidade(options?: {
   const tipoDeExame = options?.tipoDeExame;
 
   const date = options?.data?.split("-");
-
   const response = await axios.get("/agendamento-disponibilidade", {
     params: {
       campanha_id: campanha,
       municipio,
       grupo_atendimento: grupoDeAtendimento,
-      data: date ? `${date[1]}-${date[2]}-${date[0]}` : null,
+      data: date?.length === 3 ? `${date[1]}-${date[2]}-${date[0]}` : null,
       tipo_exame: tipoDeExame,
     },
   });
@@ -84,6 +85,7 @@ async function postAgendamento(options: {
   const response = await axios.post("/agendamentos", {
     ...options,
   });
+  return response.data;
 }
 
 const agendamentosServices = {
