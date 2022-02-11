@@ -122,7 +122,7 @@ export default class Agendamento extends Vue {
 .content {
   margin-left: 300px;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 .meus-agendamentos-icon {
   width: 1.5rem;
@@ -201,8 +201,8 @@ export default class Agendamento extends Vue {
   align-items: center;
 }
 .main-container {
-  height: 100%;
   width: 100%;
+  min-height: 100%;
   display: flex;
 }
 .navbar-agendamento {

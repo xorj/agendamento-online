@@ -52,7 +52,7 @@ export default class Agendar extends Vue {
 
 <style scoped>
 .content-wrapper {
-  width: 100%;
+  min-height: 100%;
   background-image: radial-gradient(
       120% 50% at top left,
       transparent 92%,
