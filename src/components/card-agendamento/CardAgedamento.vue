@@ -45,7 +45,7 @@
     </div>
     <div class="d-flex flex-auto button-container">
       <c-button
-        v-b-modal.modal-comprovante
+        v-b-modal="modalId"
         v-if="agendado === 0"
         class="rounded-0 detalhes w-50"
         color="secondary"
@@ -59,10 +59,7 @@
         >Cancelar</c-button
       >
     </div>
-    <comprovante-agendamento
-      id="modal-comprovante"
-      :agendamento="agendamento"
-    />
+    <comprovante-agendamento :id="modalId" :agendamento="agendamento" />
   </div>
 </template>
 
@@ -79,6 +76,9 @@ export default class CardAgendamento extends Vue {
   @Prop({}) agendamento!: IAgendamento;
   listaStatus = ["Agendado", "Cancelado"];
 
+  get modalId(): string {
+    return `modal-comprovante${this.agendamento.id}`;
+  }
   get tipoExame(): string {
     return this.agendamento.tipo_exame;
   }
