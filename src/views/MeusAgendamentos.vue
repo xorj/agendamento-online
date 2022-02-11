@@ -12,14 +12,11 @@
         >
         </b-form-select>
       </div>
-      <div
-        class="agendamentos-wrapper my-4"
-        v-if="agendamentosFiltrados.length"
-      >
+      <div class="agendamentos-wrapper my-4" v-if="agendamentos.length">
         <card-agendamento
           @agendamentoCancelado="loadAgendamentos"
           :key="agendamento.id + index"
-          v-for="(agendamento, index) in agendamentosFiltrados"
+          v-for="(agendamento, index) in agendamentos"
           :agendamento="agendamento"
         />
       </div>
@@ -53,7 +50,6 @@ export default class MeusAgendamentos extends Vue {
   paginaAtual = 1;
   totalDePaginas = 2;
   agendamentos: Array<IAgendamento> = [];
-  agendamentosFiltrados: Array<IAgendamento> = [];
   filtrosLugares = [{ value: null, text: "Local de exame" }];
 
   @Watch("paginaAtual")
@@ -62,33 +58,31 @@ export default class MeusAgendamentos extends Vue {
     this.agendamentos = await this.$store.dispatch("getAgendamentos", {
       token: token,
       page: newValue,
+      localizacao: this.lugarFiltro,
     });
-    this.setOpcoesFiltradas();
   }
-
-  setOpcoesFiltradas(): void {
-    if (this.lugarFiltro) {
-      this.agendamentosFiltrados = this.agendamentos.filter(
-        (agendamento: IAgendamento) => {
-          return agendamento.localizacao === this.lugarFiltro;
-        }
-      );
-    } else {
-      this.agendamentosFiltrados = this.agendamentos;
-    }
+  @Watch("lugarFiltro")
+  async handleNewFiltro(newValue: string) {
+    this.setTotalPaginas();
+    this.paginaAtual = 1;
+    const token = this.$store.state.token;
+    this.agendamentos = await this.$store.dispatch("getAgendamentos", {
+      token: token,
+      page: this.paginaAtual,
+      localizacao: newValue,
+    });
   }
 
   setPagina(pagina: number): void {
     this.paginaAtual = pagina;
   }
 
-  async setTotalDePaginasEFiltros(): Promise<void> {
+  async setFiltros(): Promise<void> {
     const token = this.$store.state.token;
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
       token: token,
     });
-    this.totalDePaginas = Math.floor(agendamentos.length / 10) + 1;
-    agendamentos.forEach((agendamento: any) => {
+    this.agendamentos.forEach((agendamento: any) => {
       let option = {
         value: agendamento.localizacao,
         text: agendamento.localizacao,
@@ -99,6 +93,15 @@ export default class MeusAgendamentos extends Vue {
       }
     });
   }
+  async setTotalPaginas(): Promise<void> {
+    const token = this.$store.state.token;
+    let agendamentos = await this.$store.dispatch("getAgendamentos", {
+      token: token,
+      localizacao: this.lugarFiltro,
+    });
+    this.totalDePaginas = Math.ceil(agendamentos?.length / 10);
+  }
+
   async loadAgendamentos(): Promise<void> {
     const token = this.$store.state.token;
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
@@ -106,11 +109,11 @@ export default class MeusAgendamentos extends Vue {
       page: this.paginaAtual,
     });
     this.agendamentos = agendamentos;
-    this.agendamentosFiltrados = this.agendamentos;
   }
   async created(): Promise<void> {
     await this.loadAgendamentos();
-    await this.setTotalDePaginasEFiltros();
+    await this.setFiltros();
+    await this.setTotalPaginas();
   }
 }
 </script>
@@ -146,7 +149,7 @@ export default class MeusAgendamentos extends Vue {
   color: var(--violet);
 }
 .content-wrapper {
-  height: 100%;
+  min-height: 100%;
   width: auto;
   background-image: radial-gradient(
       120% 50% at top left,
