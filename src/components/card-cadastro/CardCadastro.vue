@@ -11,15 +11,17 @@
           v-slot="{ errors }"
           class="input-validation"
         >
-          <label for="email" class="text-dark-gray mb-0 w-100"
+          <label for="email" class="text-dark-gray mb-2 w-100"
             >Email
             <b-input
-              class="mb-2 px-3 py-4 input-border"
+              class="px-3 py-4 input-border"
               id="email"
               type="email"
               v-model="email"
             />
-            <span class="error">{{ errors[0] }}</span>
+            <span class="error"
+              >{{ errors[0] }}{{ errorEmail ? "Email já existe" : "" }}</span
+            >
           </label>
         </ValidationProvider>
         <ValidationProvider
@@ -28,10 +30,10 @@
           v-slot="{ errors }"
           class="input-validation"
         >
-          <label for="nome" class="text-dark-gray mb-0 w-100"
+          <label for="nome" class="text-dark-gray mb-2 w-100"
             >Nome
             <b-input
-              class="mb-2 px-3 py-4 input-border"
+              class="px-3 py-4 input-border"
               id="nome"
               type="text"
               v-model="nome"
@@ -45,10 +47,10 @@
           vid="senha"
           v-slot="{ errors }"
         >
-          <label for="senha" class="text-dark-gray mb-0 w-100"
+          <label for="senha" class="text-dark-gray mb-2 w-100"
             >Senha
             <b-input
-              class="mb-2 px-3 py-4 input-border"
+              class="px-3 py-4 input-border"
               id="senha"
               type="password"
               v-model="senha"
@@ -62,10 +64,10 @@
           rules="required|confirmed:senha"
           v-slot="{ errors }"
         >
-          <label for="confirmarSenha" class="text-dark-gray mb-0 w-100"
+          <label for="confirmarSenha" class="text-dark-gray mb-2 w-100"
             >Confirmar senha
             <b-input
-              class="mb-2 px-3 py-4 input-border"
+              class="px-3 py-4 input-border"
               id="confirmarSenha"
               v-model="confirmarSenha"
               type="password"
@@ -149,6 +151,8 @@ export default class CardCadastro extends Vue {
   confirmarSenha = "";
   index = 0;
   criouConta = false;
+  errorEmail = false;
+
   async cadastrar(): Promise<void> {
     const observerRef = this.$refs.observer;
 
@@ -157,6 +161,7 @@ export default class CardCadastro extends Vue {
     ).validate();
 
     if (this.index === 1 && validForm) {
+      this.errorEmail = false;
       await this.$store
         .dispatch("cadastro", {
           email: this.email,
@@ -166,6 +171,9 @@ export default class CardCadastro extends Vue {
         .then(() => {
           this.criouConta = true;
           setTimeout(() => this.$router.push("/agendamento"), 700);
+        })
+        .catch((e) => {
+          this.errorEmail = true;
         });
     }
   }
