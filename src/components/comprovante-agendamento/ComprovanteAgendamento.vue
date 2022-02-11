@@ -54,10 +54,7 @@
         </p>
       </div>
     </div>
-    <template
-      v-slot:modal-footer="{ hide, ok }"
-      class="buttons-comprovante px-4 py-3"
-    >
+    <template v-slot:modal-footer="{ hide, ok }" class="px-4 py-3">
       <c-button
         class="cancelar-comprovante py-2 px-4 mr-3"
         @click="
