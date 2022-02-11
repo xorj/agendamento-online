@@ -167,8 +167,8 @@ export default class CardDisponibilidade extends Vue {
       let { data, municipio, localizacao } = localEscolha;
       let informacoesAgendamento = {
         usuario_id: this.$store.state.user.id,
-        campanha_id: 1, //COVID-19
-        grupo_atendimento_id: grupoDeAtendimento,
+        campanha_id: 1,
+        grupo_atendimento_id: grupoDeAtendimento || 5,
         municipio: municipio,
         localizacao: localizacao,
         data: data,
