@@ -76,7 +76,6 @@
           </label>
         </ValidationProvider>
         <c-button
-          v-b-modal="criouConta ? 'modalConfirmacao' : ''"
           :disabled="invalid"
           color="secondary"
           class="btn-entrar text-center w-100 py-3 mt-4 mb-3"
@@ -85,27 +84,6 @@
         >
       </b-form>
     </ValidationObserver>
-    <b-modal
-      id="modalConfirmacao"
-      title="Cadastro efetuado com sucesso!"
-      hide-header-close
-      size="sm"
-      centered
-      class="modal-confirmacao"
-    >
-      <template
-        v-slot:modal-footer="{ hide }"
-        class="px-4 py-3"
-        style="margin: 0"
-      >
-        <c-button
-          variant="primary"
-          class="btn-fechar-confirmacao rounded p-2"
-          @click="hide()"
-          >Fechar</c-button
-        >
-      </template>
-    </b-modal>
   </b-card>
 </template>
 
@@ -150,8 +128,8 @@ export default class CardCadastro extends Vue {
   senha = "";
   confirmarSenha = "";
   index = 0;
-  criouConta = false;
   errorEmail = false;
+  criouConta = false;
 
   async cadastrar(): Promise<void> {
     const observerRef = this.$refs.observer;
@@ -169,8 +147,8 @@ export default class CardCadastro extends Vue {
           nome: this.nome,
         })
         .then(() => {
-          this.criouConta = true;
-          setTimeout(() => this.$router.push("/agendamento"), 700);
+          alert("Conta criada com sucesso!");
+          this.$router.push("/agendamento");
         })
         .catch((e) => {
           this.errorEmail = true;
@@ -193,9 +171,6 @@ export default class CardCadastro extends Vue {
   background-color: white !important;
   border-color: #ababab !important;
   color: var(--dark-gray) !important;
-}
-.modal-confirmacao {
-  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
 }
 .card-cadastro {
   width: 100%;
