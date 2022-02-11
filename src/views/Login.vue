@@ -45,39 +45,10 @@ export default class Login extends Vue {
 </script>
 
 <style scoped>
-.input-text {
-  font-weight: 300;
-}
-.input-border {
-  border: 1px solid var(--light-gray);
-}
-.btn-entrar {
-  font-weight: 700;
-  color: white;
-}
-.login-card {
-  width: 471px;
-  min-width: 60%;
-}
-
-.text-dark-gray {
-  color: var(--dark-gray);
-}
-
-.text-dark-pink {
-  color: var(--dark-pink);
-}
-
 .main-container {
   height: 100%;
   width: 100%;
   display: relative;
-}
-.card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
 }
 .btn-cadastro {
   font-size: 1rem;
