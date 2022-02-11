@@ -29,6 +29,9 @@ const routes: Array<RouteConfig> = [
     name: "Agendamento",
     component: () =>
       import(/* webpackChunkName: "Agendamento" */ "@/views/Agendamento.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 

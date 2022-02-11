@@ -115,6 +115,11 @@ export default class Agendamento extends Vue {
     await this.$store.dispatch("logout");
     this.$router.push("/");
   }
+  beforeCreate() {
+    if (!this.$store.state.token) {
+      this.$router.push("/");
+    }
+  }
 }
 </script>
 
