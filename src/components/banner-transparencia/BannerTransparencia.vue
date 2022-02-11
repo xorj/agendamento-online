@@ -6,7 +6,7 @@
         :src="require('../../assets/calendar-icon.svg')"
         class="calendar mb-4"
       />
-      <h3 class="header text-white">Agendamento Online</h3>
+      <h3 class="header-transparencia text-white">Agendamento Online</h3>
       <p class="text text-white">Rápido e seguro</p>
       <p class="text text-gray">
         Evite filas e aglomeração. <br />
@@ -58,8 +58,8 @@ export default class BannerTransparencia extends Vue {
 .text-gray {
   color: var(--light-gray);
 }
-.header {
-  font-size: 1.5rem;
+.header-transparencia {
+  font-size: 1.3rem;
   font-weight: 700;
 }
 .text {
