@@ -1,5 +1,5 @@
 <template>
-  <b-card class="card-cadastro shadow-sm px-4 py-4">
+  <b-card class="card-login shadow-sm px-4 py-4">
     <p class="text-dark-pink text-center mb-4">Preencha os campos abaixo</p>
     <ValidationObserver ref="observer">
       <b-form @submit.prevent="onSubmit">
@@ -119,7 +119,7 @@ export default class CardLogin extends Vue {
   font-weight: 700;
   color: white;
 }
-.card-cadastro {
+.card-login {
   width: 450px;
   max-width: 80vw;
 }
