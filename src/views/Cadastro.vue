@@ -5,7 +5,7 @@
       <b-col cols="9" class="d-flex align-items-center justify-content-center">
         <div class="link-login-container p-3">
           <div class="d-flex align-items-center">
-            <p class="m-0">Não tem uma conta?</p>
+            <p class="m-0">Já tem conta?</p>
           </div>
           <custom-button @click="goToLogin" class="btn-cadastro px-4 py-2 ml-3">
             <b-img :src="require('../assets/user-icon.svg')" />
