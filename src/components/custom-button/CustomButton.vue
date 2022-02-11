@@ -1,6 +1,6 @@
 <template>
   <b-button
-    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+    v-ripple.400="'rgba(255, 255, 255, 0.2)'"
     v-bind="$attrs"
     :variant="color || 'primary'"
     :disabled="disabled"
