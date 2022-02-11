@@ -118,7 +118,6 @@ export default class CardDisponibilidade extends Vue {
   @Prop() infoAgendamento!: IInfoAgendamento;
   @Prop() disponibilidadeAgendamento?: Array<IDisponibilidade>;
 
-  showComprovante = false;
   agendamento = {};
 
   paginaAtual = 1;
