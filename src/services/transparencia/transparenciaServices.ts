@@ -1,7 +1,6 @@
 import axios from "@/axios";
-async function getTransparencia(options: any): Promise<any> {
-  const response = await axios.post("/transparencia", {});
-
+async function getTransparencia(): Promise<any> {
+  const response = await axios.get("/transparencia");
   return response.data;
 }
 const transparenciaServices = { getTransparencia };

@@ -1,5 +1,6 @@
 import agendamentosServices from "@/services/agendamentos/agendamentosServices";
 import autenticacaoServices from "@/services/autenticacao/autenticacaoServices";
+import transparenciaServices from "@/services/transparencia/transparenciaServices";
 import usuariosServices from "@/services/usuarios/usuariosServices";
 
 import { Commit } from "vuex";
@@ -89,6 +90,10 @@ const actions = {
     }
   ): Promise<void> {
     const response = await agendamentosServices.postAgendamento(options);
+    return response;
+  },
+  async getTransparencia({ commit }: { commit: Commit }): Promise<void> {
+    const response = await transparenciaServices.getTransparencia();
     return response;
   },
 };
