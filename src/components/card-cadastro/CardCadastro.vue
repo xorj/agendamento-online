@@ -73,15 +73,37 @@
             <span class="error">{{ errors[0] }}</span>
           </label>
         </ValidationProvider>
-        <custom-button
+        <c-button
+          v-b-modal="criouConta ? 'modalConfirmacao' : ''"
           :disabled="invalid"
           color="secondary"
           class="btn-entrar text-center w-100 py-3 mt-4 mb-3"
           @click="continuar"
-          >Continuar</custom-button
+          >Continuar</c-button
         >
       </b-form>
     </ValidationObserver>
+    <b-modal
+      id="modalConfirmacao"
+      title="Cadastro efetuado com sucesso!"
+      hide-header-close
+      size="sm"
+      centered
+      class="modal-confirmacao"
+    >
+      <template
+        v-slot:modal-footer="{ hide }"
+        class="px-4 py-3"
+        style="margin: 0"
+      >
+        <c-button
+          variant="primary"
+          class="btn-fechar-confirmacao rounded p-2"
+          @click="hide()"
+          >Fechar</c-button
+        >
+      </template>
+    </b-modal>
   </b-card>
 </template>
 
@@ -89,7 +111,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email, min, confirmed } from "vee-validate/dist/rules";
-import CustomButton from "@/components/custom-button/CustomButton.vue";
+import CButton from "@/components/custom-button/CustomButton.vue";
 import {} from "vee-validate";
 
 extend("confirmed", {
@@ -117,7 +139,7 @@ extend("required", {
   components: {
     ValidationProvider,
     ValidationObserver,
-    CustomButton,
+    CButton,
   },
 })
 export default class CardCadastro extends Vue {
@@ -126,7 +148,7 @@ export default class CardCadastro extends Vue {
   senha = "";
   confirmarSenha = "";
   index = 0;
-
+  criouConta = false;
   async cadastrar(): Promise<void> {
     const observerRef = this.$refs.observer;
 
@@ -141,7 +163,10 @@ export default class CardCadastro extends Vue {
           senha: this.senha,
           nome: this.nome,
         })
-        .then(() => this.$router.push("/agendamento"));
+        .then(() => {
+          this.criouConta = true;
+          setTimeout(() => this.$router.push("/agendamento"), 700);
+        });
     }
   }
   continuar(): void {
@@ -155,6 +180,19 @@ export default class CardCadastro extends Vue {
 </script>
 
 <style>
+.btn-fechar-confirmacao {
+  border: 1px solid var(--light-gray);
+  background-color: white !important;
+  border-color: #ababab !important;
+  color: var(--dark-gray) !important;
+}
+.modal-confirmacao {
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+}
+.card-cadastro {
+  width: 100%;
+}
+
 .error {
   font-size: 0.9rem;
   color: var(--red);
@@ -176,9 +214,5 @@ export default class CardCadastro extends Vue {
 .btn-entrar {
   font-weight: 700;
   color: white;
-}
-.card-cadastro {
-  width: 450px;
-  max-width: 80vw;
 }
 </style>
