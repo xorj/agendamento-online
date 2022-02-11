@@ -51,6 +51,7 @@
 
     <div class="confirmar-pagination-wrapper mb-5 mt-4">
       <c-button
+        v-b-modal.modal-agendamento
         :disabled="!horarioSelecionado"
         class="rounded px-4 py-2 btn-confirmar"
         color="secondary"
@@ -63,6 +64,10 @@
         :totalDePaginas="totalDePaginas"
       />
     </div>
+    <comprovante-agendamento
+      id="modal-agendamento"
+      :agendamento="agendamento"
+    />
   </div>
 </template>
 
@@ -70,6 +75,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import CButton from "@/components/custom-button/CustomButton.vue";
 import Pagination from "@/components/pagination/Pagination.vue";
+import ComprovanteAgendamento from "@/components/comprovante-agendamento/ComprovanteAgendamento.vue";
 
 interface IVagas {
   "8h": number;
@@ -104,6 +110,7 @@ interface IInfoAgendamento {
   components: {
     CButton,
     Pagination,
+    ComprovanteAgendamento,
   },
 })
 export default class CardDisponibilidade extends Vue {
@@ -111,18 +118,15 @@ export default class CardDisponibilidade extends Vue {
   @Prop() infoAgendamento!: IInfoAgendamento;
   @Prop() disponibilidadeAgendamento?: Array<IDisponibilidade>;
 
+  showComprovante = false;
+  agendamento = {};
+
   paginaAtual = 1;
   agendamentoSelecionado = 0;
   horarioSelecionado = "";
 
   get disponibilidadePaginaAtual(): Array<IDisponibilidade> {
     if (this.disponibilidadeAgendamento) {
-      console.log(
-        this.disponibilidadeAgendamento.slice(
-          (this.paginaAtual - 1) * 3,
-          (this.paginaAtual - 1) * 3 + 3
-        )
-      );
       return this.disponibilidadeAgendamento.slice(
         (this.paginaAtual - 1) * 3,
         (this.paginaAtual - 1) * 3 + 3
@@ -173,9 +177,10 @@ export default class CardDisponibilidade extends Vue {
         status: "AGENDADO",
         tipo_exame: tipoDeExame,
       };
-      await this.$store.dispatch("agendarExame", {
+      const novoAgendamento = await this.$store.dispatch("agendarExame", {
         ...informacoesAgendamento,
       });
+      this.agendamento = novoAgendamento;
     }
   }
 
