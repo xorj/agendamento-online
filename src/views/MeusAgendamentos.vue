@@ -54,9 +54,9 @@ export default class MeusAgendamentos extends Vue {
 
   @Watch("paginaAtual")
   async handleNewPagina(newValue: number): Promise<void> {
-    const token = this.$store.state.token;
+    const usuario_id = this.$store.state.user.id;
     this.agendamentos = await this.$store.dispatch("getAgendamentos", {
-      token: token,
+      usuario_id,
       page: newValue,
       localizacao: this.lugarFiltro,
     });
@@ -65,9 +65,9 @@ export default class MeusAgendamentos extends Vue {
   async handleNewFiltro(newValue: string) {
     this.setTotalPaginas();
     this.paginaAtual = 1;
-    const token = this.$store.state.token;
+    const usuario_id = this.$store.state.user.id;
     this.agendamentos = await this.$store.dispatch("getAgendamentos", {
-      token: token,
+      usuario_id,
       page: this.paginaAtual,
       localizacao: newValue,
     });
@@ -78,9 +78,9 @@ export default class MeusAgendamentos extends Vue {
   }
 
   async setFiltros(): Promise<void> {
-    const token = this.$store.state.token;
+    const usuario_id = this.$store.state.user.id;
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
-      token: token,
+      usuario_id,
     });
     this.agendamentos.forEach((agendamento: any) => {
       let option = {
@@ -94,18 +94,18 @@ export default class MeusAgendamentos extends Vue {
     });
   }
   async setTotalPaginas(): Promise<void> {
-    const token = this.$store.state.token;
+    const usuario_id = this.$store.state.user.id;
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
-      token: token,
+      usuario_id,
       localizacao: this.lugarFiltro,
     });
     this.totalDePaginas = Math.ceil(agendamentos?.length / 10);
   }
 
   async loadAgendamentos(): Promise<void> {
-    const token = this.$store.state.token;
+    const usuario_id = this.$store.state.user.id;
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
-      token: token,
+      usuario_id,
       page: this.paginaAtual,
     });
     this.agendamentos = agendamentos;
