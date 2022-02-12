@@ -30,7 +30,7 @@
               }
             "
           >
-            <div>
+            <div class="horario-vaga">
               <p class="m-0">{{ gethoraFormatada(vaga[0]) }}</p>
             </div>
             <div
@@ -47,12 +47,17 @@
         </div>
         <hr style="background-color: var(--gray)" />
       </div>
+      <div v-if="!disponibilidadePaginaAtual.length">
+        <p class="violet m-0">
+          Não existe nenhum agendamento disponível para esses filtros
+        </p>
+      </div>
     </div>
 
     <div class="confirmar-pagination-wrapper mb-5 mt-4">
       <c-button
         v-b-modal.modal-agendamento
-        :disabled="!horarioSelecionado"
+        :disabled="!horarioSelecionado || !disponibilidadePaginaAtual.length"
         class="rounded px-4 py-2 btn-confirmar"
         color="secondary"
         @click="agendarExame"
@@ -202,9 +207,17 @@ export default class CardDisponibilidade extends Vue {
   display: flex;
   justify-content: space-between;
 }
-.card-horario > div {
+.card-horario > .horario-vaga {
+  font-size: 1.1rem;
   height: 100%;
-  width: 50%;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-horario > .numero-vagas {
+  height: 100%;
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +237,7 @@ export default class CardDisponibilidade extends Vue {
 
 .wrapper-cards-horarios {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 }
