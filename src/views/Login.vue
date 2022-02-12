@@ -96,6 +96,24 @@ export default class Login extends Vue {
   background-size: cover;
 }
 
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  max-width: 95vw;
+}
+.btn-cadastro {
+  font-size: 1rem;
+  background-color: var(--violet);
+}
+.link-cadastro-container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 @media only screen and (min-width: 1024px) {
   .btn-text-mobile {
     display: none;
@@ -129,10 +147,6 @@ export default class Login extends Vue {
   .texto-login {
     display: none !important;
   }
-  div.card-body {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .banner-transparencia {
     display: none;
   }
@@ -144,23 +158,5 @@ export default class Login extends Vue {
     margin-left: auto;
     margin-right: auto;
   }
-}
-.card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  max-width: 95vw;
-}
-.btn-cadastro {
-  font-size: 1rem;
-  background-color: var(--violet);
-}
-.link-cadastro-container {
-  display: flex;
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 </style>

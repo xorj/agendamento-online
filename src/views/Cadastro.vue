@@ -177,10 +177,6 @@ export default class Cadastro extends Vue {
   .texto-login {
     display: none !important;
   }
-  div.card-body {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .banner-transparencia {
     display: none;
   }
