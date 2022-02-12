@@ -122,4 +122,9 @@ export default class CardLogin extends Vue {
 .card-login {
   width: 100%;
 }
+@media only screen and (max-width: 1024px) {
+  .card-login {
+    padding: 5px !important;
+  }
+}
 </style>
