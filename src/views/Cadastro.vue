@@ -20,8 +20,8 @@
           <p class="pl-2 m-0 banner-text">Agendamento Online</p>
         </div>
         <div class="card-container">
-          <card-cadastro />
-          <p class="p-2 text-center">
+          <card-cadastro @confirmouEmail="confirmouEmail = true" />
+          <p v-if="confirmouEmail" class="p-2 text-center">
             Ao assinar você concorda com os
             <span v-b-modal.modal> <u>termos de serviço</u></span> e
             <span v-b-modal.modal><u>política de privacidade</u></span>
@@ -112,6 +112,7 @@ export default class Cadastro extends Vue {
   banner = {
     backgroundImage: `url(${require("../assets/banner-transparencia.png")})`,
   };
+  confirmouEmail = false;
   goToLogin(): void {
     this.$router.push("/");
   }

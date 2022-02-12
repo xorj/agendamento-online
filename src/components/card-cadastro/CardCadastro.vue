@@ -158,6 +158,7 @@ export default class CardCadastro extends Vue {
   continuar(): void {
     if (this.index === 0) {
       this.index++;
+      this.$emit("confirmouEmail");
     } else {
       this.cadastrar();
     }
@@ -197,5 +198,10 @@ export default class CardCadastro extends Vue {
 .btn-entrar {
   font-weight: 700;
   color: white;
+}
+@media only screen and (max-width: 1024px) {
+  .card-cadastro {
+    padding: 5px !important;
+  }
 }
 </style>
