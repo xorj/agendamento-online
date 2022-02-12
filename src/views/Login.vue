@@ -11,8 +11,10 @@
             @click="goToCadastro"
             class="btn-cadastro px-4 py-2 ml-3"
           >
-            <b-img :src="require('../assets/user-icon.svg')" />
-            Crie uma
+            <p class="btn-text ml-1 mb-0">
+              <b-img :src="require('../assets/user-icon.svg')" /> Crie uma
+            </p>
+            <p class="btn-text-mobile mb-0">Criar conta</p>
           </custom-button>
         </div>
         <div class="banner-mobile" :style="banner">
@@ -95,6 +97,9 @@ export default class Login extends Vue {
 }
 
 @media only screen and (min-width: 1024px) {
+  .btn-text-mobile {
+    display: none;
+  }
   .instituicoes {
     display: none;
   }
@@ -110,6 +115,9 @@ export default class Login extends Vue {
   }
 }
 @media only screen and (max-width: 1024px) {
+  .btn-text {
+    display: none;
+  }
   .card-main-wrapper {
     display: flex;
     flex-direction: column;
