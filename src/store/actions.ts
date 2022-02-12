@@ -28,7 +28,12 @@ const actions = {
   },
   async getAgendamentos(
     { commit }: { commit: Commit },
-    options: { usuario_id?: string; page?: number; localizacao?: string }
+    options: {
+      usuario_id?: string;
+      page?: number;
+      localizacao?: string;
+      municipio?: string;
+    }
   ): Promise<void> {
     const response = await agendamentosServices.getAgendamentosUsuario(options);
     return response;

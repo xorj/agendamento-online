@@ -4,15 +4,19 @@ async function getAgendamentosUsuario(options: {
   usuario_id?: string;
   page?: number;
   localizacao?: string;
+  municipio?: string;
 }): Promise<any> {
   const usuario_id = options?.usuario_id;
   const page = options?.page;
   const localizacao = options?.localizacao;
+  const municipio = options?.municipio;
+
   const response = await axios.get("/agendamentos", {
     params: {
       usuario_id: usuario_id ? usuario_id : undefined,
       _page: page ? page : undefined,
       localizacao: localizacao ? localizacao : undefined,
+      municipio: municipio ? municipio : undefined,
     },
   });
   return response.data;
