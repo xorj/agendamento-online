@@ -81,6 +81,39 @@
       </div>
     </div>
     <div class="content">
+      <div class="navbar-agendamento-mobile">
+        <div class="user-wrapper p-2">
+          <b-img
+            :src="require('../assets/calendar-icon-violet.svg')"
+            class="calendar-icon pb-1"
+          />
+          <p class="mb-0 w-100 px-1 ml-3 bold violet">Agendamento online</p>
+
+          <div class="menu-mobile">
+            <div>
+              <b-img
+                :src="require('../assets/user-pic.png')"
+                class="user-pic pb-1"
+              />
+            </div>
+            <b-dropdown
+              right
+              no-caret
+              menu-class="mt-2"
+              toggle-class="dropdown-button"
+            >
+              <template #button-content>
+                <b-img
+                  :src="require('../assets/chevron-down.svg')"
+                  class="dropdown-icon"
+                />
+              </template>
+              <b-dropdown-item href="#" disabled>Meu Perfil</b-dropdown-item>
+              <b-dropdown-item @click="logout">Sair</b-dropdown-item>
+            </b-dropdown>
+          </div>
+        </div>
+      </div>
       <meus-agendamentos v-if="opcaoSelecionada === 0" />
       <agendar v-if="opcaoSelecionada === 1" />
     </div>
@@ -219,5 +252,24 @@ export default class Agendamento extends Vue {
   flex-direction: column;
   width: 250px;
   max-width: 100%;
+}
+.menu-mobile {
+  display: flex;
+}
+@media only screen and (max-width: 1024px) {
+  .user-wrapper {
+    padding: 0;
+  }
+  .navbar-agendamento {
+    display: none;
+  }
+  .content {
+    margin-left: 0;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .navbar-agendamento-mobile {
+    display: none;
+  }
 }
 </style>
