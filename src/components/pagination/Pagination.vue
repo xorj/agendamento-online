@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <c-button
-      class="px-3 py-2 button rounded-left"
+      class="px-3 py-1 button rounded-left"
       style="border-radius: 5px 0 0 5px !important"
       :disabled="firstDisabled"
       @click="voltar"
@@ -55,8 +55,21 @@ export default class Pagination extends Vue {
   }
 
   get paginas(): Array<number> {
-    let paginas = [];
-    for (let i = 1; i <= this.totalDePaginas; i++) paginas.push(i);
+    let paginas = [this.paginaAtual];
+    let rangeEsq = this.paginaAtual - 1;
+    let rangeDir = this.paginaAtual + 1;
+
+    while (
+      (rangeEsq > 0 || rangeDir < this.totalDePaginas) &&
+      paginas.length <= 3
+    ) {
+      if (rangeDir <= this.totalDePaginas && paginas.length <= 3)
+        paginas.push(rangeDir);
+      if (rangeEsq > 0 && paginas.length <= 3) paginas.unshift(rangeEsq);
+      rangeEsq--;
+      rangeDir++;
+    }
+
     return paginas;
   }
 
