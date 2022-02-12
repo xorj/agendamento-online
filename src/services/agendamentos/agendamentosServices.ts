@@ -1,18 +1,18 @@
 import axios from "@/axios";
 
 async function getAgendamentosUsuario(options: {
-  token: string;
+  usuario_id?: string;
   page?: number;
   localizacao?: string;
 }): Promise<any> {
-  const { token, page, localizacao } = options;
+  const usuario_id = options?.usuario_id;
+  const page = options?.page;
+  const localizacao = options?.localizacao;
   const response = await axios.get("/agendamentos", {
-    headers: {
-      Authorization: "Bearer" + token,
-    },
     params: {
-      _page: page,
-      localizacao: localizacao,
+      usuario_id: usuario_id ? usuario_id : undefined,
+      _page: page ? page : undefined,
+      localizacao: localizacao ? localizacao : undefined,
     },
   });
   return response.data;
