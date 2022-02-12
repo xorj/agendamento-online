@@ -8,7 +8,7 @@
         v-for="disponibilidade in disponibilidadePaginaAtual"
         :key="disponibilidade.id"
       >
-        <p class="m-0 violet">
+        <p class="mb-2 violet">
           {{ disponibilidade.localizacao }} | Covid-19 | 8h às 16h
         </p>
         <div class="wrapper-cards-horarios">
@@ -210,14 +210,14 @@ export default class CardDisponibilidade extends Vue {
 .card-horario > .horario-vaga {
   font-size: 1.1rem;
   height: 100%;
-  width: 50px;
+  width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .card-horario > .numero-vagas {
   height: 100%;
-  width: 80px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,5 +253,24 @@ export default class CardDisponibilidade extends Vue {
 }
 .disponibilidade-card {
   margin-left: 450px;
+}
+@media only screen and (max-width: 1024px) {
+  .disponibilidade-card {
+    margin: 0;
+  }
+  .confirmar-pagination-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 0 !important;
+  }
+  .confirmar-pagination-wrapper > .btn {
+    margin-top: 10px;
+  }
+  .btn-confirmar {
+    flex: 1;
+    width: 100%;
+    max-width: 300px;
+  }
 }
 </style>
