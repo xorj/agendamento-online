@@ -4,7 +4,7 @@
       <banner-transparencia />
       <b-col class="px-5 py-3">
         <p class="title bold violet">Transparência</p>
-        <template v-if="!filtroOpen">
+        <div v-show="!filtroOpen">
           <div class="charts-container mt-5">
             <div class="chart-container card shadow-sm p-3">
               <doses-recebidas :data="dataDosesRecebidas" />
@@ -16,12 +16,17 @@
               <vacinacao-geral :data="dataVacinacaoGeral" />
             </div>
           </div>
-        </template>
-        <template v-if="filtroOpen">
+        </div>
+        <div v-show="filtroOpen">
           <div class="charts-container mt-5">
-            <div class="chart-container card shadow-sm p-3">GRAFICO</div>
+            <div class="chart-container card shadow-sm p-3">
+              <tipos-exame :data="dataAgendamentoTipoExame" />
+            </div>
+            <div class="chart-container card shadow-sm p-3">
+              <grupos-atendimento :data="dataGrupoDeAtendimento" />
+            </div>
           </div>
-        </template>
+        </div>
       </b-col>
       <b-col v-if="filtroOpen" cols="3" class="wrapper-filtro p-3">
         <p style="color: white; font-weight: 600" class="mb-0">Filtros</p>
@@ -84,12 +89,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import BannerTransparencia from "@/components/banner-transparencia/BannerTransparencia.vue";
 import CustomButton from "@/components/custom-button/CustomButton.vue";
 import DosesRecebidas from "@/components/charts/DosesRecebidas.vue";
 import DosesAplicadas from "@/components/charts/DosesAplicadas.vue";
 import VacinacaoGeral from "@/components/charts/VacinacaoGeral.vue";
+import TiposExame from "@/components/charts/TiposExame.vue";
+import GruposAtendimento from "@/components/charts/GruposAtendimento.vue";
 
 @Component({
   name: "Transparencia",
@@ -99,6 +106,8 @@ import VacinacaoGeral from "@/components/charts/VacinacaoGeral.vue";
     DosesRecebidas,
     DosesAplicadas,
     VacinacaoGeral,
+    TiposExame,
+    GruposAtendimento,
   },
 })
 export default class Transparencia extends Vue {
@@ -110,12 +119,29 @@ export default class Transparencia extends Vue {
 
   optionsMunicipios = [];
   filtroMunicipio = "";
+  agendamentos = [];
+  gruposLabel: Array<{ id: string; nome: string }> = [];
 
   filtroOpen = false;
 
   bannerTransparencia = {
     backgroundImage: `url(${require("../assets/banner-transparencia.png")})`,
   };
+  @Watch("filtroMunicipio")
+  async handleFiltroMunicipioChange(newValue: string): Promise<void> {
+    this.agendamentos = await this.$store.dispatch("getAgendamentos", {
+      municipio: newValue,
+    });
+  }
+
+  @Watch("agendamentos", { deep: true })
+  handleAgendamentosChange(newVal: any, oldVal: any): void {
+    console.log(newVal, oldVal);
+    this.setDataAgendamentoTipoExame(newVal);
+    this.setDataGrupoDeAtendimento(newVal);
+    console.log(this.dataAgendamentoTipoExame);
+    console.log(this.dataGrupoDeAtendimento);
+  }
 
   capitalize(word: string): string {
     return word[0].toUpperCase() + word.slice(1).toLowerCase();
@@ -171,10 +197,10 @@ export default class Transparencia extends Vue {
     };
   }
 
-  somaTiposExame(tipoDeExame: any, agendamentos: any): number {
+  somaTipos(tipo: any, stringLabel: string, agendamentos: any): number {
     let cont = 0;
     agendamentos.forEach((agendamento: any) => {
-      if (agendamento.tipo_exame === tipoDeExame) {
+      if (agendamento[stringLabel] === tipo) {
         cont++;
       }
     });
@@ -189,20 +215,70 @@ export default class Transparencia extends Vue {
     tiposDeExame = [...new Set(tiposDeExame)];
     let contExames = tiposDeExame.map((tipoDeExame: string) => {
       return {
-        [tipoDeExame]: this.somaTiposExame(tipoDeExame, agendamentos),
+        [tipoDeExame]: this.somaTipos(tipoDeExame, "tipo_exame", agendamentos),
       };
     });
+    let objContExame = Object.assign({}, ...contExames);
     this.dataAgendamentoTipoExame = {
-      labels: Object.keys(contExames).map(this.capitalize),
+      labels: Object.keys(objContExame),
       datasets: [
         {
-          label: "Doses Recebidas por fabricante",
-          data: Object.values(contExames),
+          data: Object.values(objContExame),
           backgroundColor: ["#3a0ca3", "#f72585"],
           hoverOffset: 4,
         },
       ],
     };
+  }
+
+  setDataGrupoDeAtendimento(agendamentos: any): void {
+    let gruposId: Array<string> = [];
+    agendamentos.forEach((agendamentos: any) => {
+      gruposId = gruposId.concat(agendamentos.grupo_atendimento_id);
+    });
+    gruposId = [...new Set(gruposId)];
+    let contGrupos = gruposId.map((gruposId: string) => {
+      return {
+        [gruposId]: this.somaTipos(
+          gruposId,
+          "grupo_atendimento_id",
+          agendamentos
+        ),
+      };
+    });
+    let objContGrupos = Object.assign({}, ...contGrupos);
+    this.dataGrupoDeAtendimento = {
+      labels: this.gruposLabel.map(
+        (grupo: { id: string; nome: string }) => grupo.nome
+      ),
+      datasets: [
+        {
+          label: "Grupos de Atendimento",
+          data: Object.values(objContGrupos),
+          backgroundColor: [
+            "#3a0ca3",
+            "#f72585",
+            "#7E1FB4",
+            "#1FB451",
+            "#1F78B4",
+            "#ff4646",
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    };
+  }
+
+  setGruposAtendimentoLabel(gruposAtendimento: any): void {
+    let gruposNome: Array<{ id: string; nome: string }> = [];
+    gruposAtendimento.forEach((grupoAtendimento: any) => {
+      gruposNome = gruposNome.concat({
+        id: grupoAtendimento.id,
+        nome: grupoAtendimento.nome,
+      });
+    });
+    gruposNome = [...new Set(gruposNome)];
+    this.gruposLabel = gruposNome;
   }
 
   setDataVacinacaoGeral(geral: any): void {
@@ -244,6 +320,11 @@ export default class Transparencia extends Vue {
     this.getMunicipios();
     let agendamentos = await this.$store.dispatch("getAgendamentos");
     this.setDataAgendamentoTipoExame(agendamentos);
+    let gruposDeAtendimento = await this.$store.dispatch(
+      "getGruposDeAtendimento"
+    );
+    this.setGruposAtendimentoLabel(gruposDeAtendimento);
+    this.setDataGrupoDeAtendimento(agendamentos);
   }
 }
 </script>
