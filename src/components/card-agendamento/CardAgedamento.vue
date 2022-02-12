@@ -1,65 +1,74 @@
 <template>
-  <div class="main-wrapper shadow rounded">
-    <div class="top-wrapper px-3 pt-3">
-      <div class="d-flex">
+  <div class="d-flex justify-content-center">
+    <div class="main-wrapper shadow rounded">
+      <div class="top-wrapper px-3 pt-3">
+        <div class="d-flex">
+          <b-img
+            :src="require('../../assets/syringe-icon.svg')"
+            class="syringe-icon"
+          />
+          <div>
+            <p class="m-0 dark-pink semi-bold">Tipo de exame</p>
+            <p class="m-0 dark-pink">{{ tipoExame }}</p>
+          </div>
+        </div>
+        <p
+          :class="[
+            'm-0',
+            'semi-bold',
+            agendado === 0 ? 'agendado' : 'cancelado',
+          ]"
+        >
+          {{ listaStatus[agendado] }}
+        </p>
+      </div>
+      <div class="px-2">
+        <hr style="background-color: var(--light-gray)" />
+      </div>
+      <div class="d-flex align-items-center px-3">
         <b-img
-          :src="require('../../assets/syringe-icon.svg')"
-          class="syringe-icon"
+          :src="require('../../assets/location-icon.svg')"
+          class="p-1 mr-1"
         />
-        <div>
-          <p class="m-0 dark-pink semi-bold">Tipo de exame</p>
-          <p class="m-0 dark-pink">{{ tipoExame }}</p>
+        <p class="m-0 p-1 violet">
+          {{ localExame }}
+        </p>
+      </div>
+      <div class="d-flex space-between mt-2 px-3 pb-3">
+        <div class="d-flex align-items-center">
+          <b-img :src="require('../../assets/day-icon.svg')" class="p-1 mr-1" />
+          <p class="m-0 violet">
+            {{ dataExame }}
+          </p>
+        </div>
+        <div class="d-flex align-items-center">
+          <b-img
+            :src="require('../../assets/time-icon.svg')"
+            class="p-1 mr-1"
+          />
+          <p class="m-0 violet">
+            {{ horaExame }}
+          </p>
         </div>
       </div>
-      <p
-        :class="['m-0', 'semi-bold', agendado === 0 ? 'agendado' : 'cancelado']"
-      >
-        {{ listaStatus[agendado] }}
-      </p>
-    </div>
-    <div class="px-2">
-      <hr style="background-color: var(--light-gray)" />
-    </div>
-    <div class="d-flex align-items-center px-3">
-      <b-img
-        :src="require('../../assets/location-icon.svg')"
-        class="p-1 mr-1"
-      />
-      <p class="m-0 p-1 violet">
-        {{ localExame }}
-      </p>
-    </div>
-    <div class="d-flex space-between mt-2 px-3 pb-3">
-      <div class="d-flex align-items-center">
-        <b-img :src="require('../../assets/day-icon.svg')" class="p-1 mr-1" />
-        <p class="m-0 violet">
-          {{ dataExame }}
-        </p>
+      <div class="d-flex flex-auto button-container">
+        <c-button
+          v-b-modal="modalId"
+          v-if="agendado === 0"
+          class="rounded-0 detalhes w-50"
+          color="secondary"
+          >Detalhes</c-button
+        >
+        <c-button
+          v-if="agendado === 0"
+          @click="cancelarAgendamento"
+          class="rounded-0 cancelar w-50"
+          color="secondary"
+          >Cancelar</c-button
+        >
       </div>
-      <div class="d-flex align-items-center">
-        <b-img :src="require('../../assets/time-icon.svg')" class="p-1 mr-1" />
-        <p class="m-0 violet">
-          {{ horaExame }}
-        </p>
-      </div>
+      <comprovante-agendamento :id="modalId" :agendamento="agendamento" />
     </div>
-    <div class="d-flex flex-auto button-container">
-      <c-button
-        v-b-modal="modalId"
-        v-if="agendado === 0"
-        class="rounded-0 detalhes w-50"
-        color="secondary"
-        >Detalhes</c-button
-      >
-      <c-button
-        v-if="agendado === 0"
-        @click="cancelarAgendamento"
-        class="rounded-0 cancelar w-50"
-        color="secondary"
-        >Cancelar</c-button
-      >
-    </div>
-    <comprovante-agendamento :id="modalId" :agendamento="agendamento" />
   </div>
 </template>
 
@@ -160,6 +169,6 @@ export default class CardAgendamento extends Vue {
 .main-wrapper {
   background-color: white;
   max-width: 320px;
-  width: auto;
+  width: 100%;
 }
 </style>

@@ -10,7 +10,7 @@
   >
     <div class="px-5 pt-5">
       <p class="mb-3 comprovante-title dark-pink">Comprovante de agendamento</p>
-      <div class="d-flex">
+      <div class="comprovante-sub">
         <p class="m-0 violet bold comprovante-subtitle">
           {{ dataExame }} - {{ horaExame }}
         </p>
@@ -56,15 +56,16 @@
     </div>
     <template v-slot:modal-footer="{ hide, ok }" class="px-4 py-3">
       <c-button
-        class="cancelar-comprovante py-2 px-4 mr-3"
+        class="cancelar-comprovante py-2 px-4"
         @click="
           () => {
             cancelarAgendamento();
             ok();
           }
         "
-        >Cancelar agendamento</c-button
       >
+        Cancelar agendamento
+      </c-button>
       <c-button
         class="fechar-comprovante py-2 px-5"
         @click="hide()"
@@ -191,5 +192,38 @@ export default class ComprovanteAgendamento extends Vue {
   background-color: #f9fafb;
   border: none;
   font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+}
+
+@media only screen and (max-width: 1024px) {
+  .orientacoes {
+    margin-top: 10px !important;
+  }
+  .modal-footer {
+    margin-top: 60px;
+  }
+  .cancelar-comprovante {
+    flex-grow: 1;
+  }
+  .fechar-comprovante {
+    flex-grow: 1;
+  }
+  .comprovante-title {
+    text-align: center;
+  }
+  .comprovante-sub {
+    flex-direction: column;
+  }
+  .comprovante-sub > .comprovante-subtitle {
+    margin: 0 !important;
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  div.aviso {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 </style>
