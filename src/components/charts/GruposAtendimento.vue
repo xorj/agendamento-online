@@ -15,7 +15,7 @@ export default {
         },
         title: {
           display: true,
-          fontStyle: "light",
+          fontStyle: "bold",
           text: "Grupos de Atendimento",
           fontColor: "#4a4a4a",
           fontFamily: "'Poppins', Arial, Helvetica, sans-serif",

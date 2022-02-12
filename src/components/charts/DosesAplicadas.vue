@@ -36,7 +36,7 @@ export default {
         },
         title: {
           display: true,
-          fontStyle: "light",
+          fontStyle: "bold",
           text: "Doses aplicadas",
           fontColor: "#4a4a4a",
           fontFamily: "'Poppins', Arial, Helvetica, sans-serif",
