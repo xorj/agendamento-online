@@ -1,5 +1,5 @@
 <template>
-  <div class="content-wrapper px-5 py-3">
+  <div class="content-wrapper px-3 py-3">
     <p class="title mb-5">Agendar</p>
     <card-filtro-agendar
       @procurarDisponibilidade="loadDisponibilidadeAgendamento"
@@ -59,5 +59,16 @@ export default class Agendar extends Vue {
       #f1f5f9 92.2%
     ),
     linear-gradient(135deg, white, white 100%);
+}
+@media only screen and (max-width: 1024px) {
+  .content-wrapper {
+    position: static;
+    width: 100%;
+    background-color: white;
+    background-image: none;
+  }
+  .bottom-navigation {
+    display: none;
+  }
 }
 </style>
