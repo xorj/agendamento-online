@@ -7,10 +7,7 @@
         <template v-if="!filtroOpen">
           <div class="charts-container mt-5">
             <div class="chart-container card shadow-sm p-3">
-              <grafico-pizza
-                :data="dataDosesRecebidas"
-                titulo="Doses recebidas"
-              />
+              <doses-recebidas :data="dataDosesRecebidas" />
             </div>
             <div class="chart-container card shadow-sm p-3">
               <doses-aplicadas :data="dataDosesAplicadas" />
@@ -91,7 +88,7 @@ import { Component, Vue } from "vue-property-decorator";
 import BannerTransparencia from "@/components/banner-transparencia/BannerTransparencia.vue";
 import CustomButton from "@/components/custom-button/CustomButton.vue";
 import DosesRecebidas from "@/components/charts/DosesRecebidas.vue";
-import GraficoPizza from "@/components/charts/GraficoPizza.vue";
+import DosesAplicadas from "@/components/charts/DosesAplicadas.vue";
 import VacinacaoGeral from "@/components/charts/VacinacaoGeral.vue";
 
 @Component({
@@ -100,7 +97,7 @@ import VacinacaoGeral from "@/components/charts/VacinacaoGeral.vue";
     BannerTransparencia,
     CustomButton,
     DosesRecebidas,
-    GraficoPizza,
+    DosesAplicadas,
     VacinacaoGeral,
   },
 })
