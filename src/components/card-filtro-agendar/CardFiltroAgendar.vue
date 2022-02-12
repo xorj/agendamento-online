@@ -22,7 +22,7 @@
           </b-form-select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 grupo-atendimento">
           <p class="mb-1 violet">Grupo de atendimento</p>
           <b-form-select
             class="filtro-agendar"
@@ -151,11 +151,13 @@ export default class CardFiltroAgendar extends Vue {
   color: var(--violet);
 }
 .agendar-filtros-wrapper {
-  width: 328px;
+  max-width: 100%;
+  width: 370px;
   display: flex;
   flex-direction: column;
 }
 .filtro-agendar {
+  max-width: 100%;
   border: 1px solid var(--violet) !important;
   color: var(--violet);
   background: #fff url("../../assets/chevron-down.svg") no-repeat right 0.75rem
@@ -169,5 +171,29 @@ export default class CardFiltroAgendar extends Vue {
   color: #fff;
   border-color: var(--violet);
   background-color: var(--violet);
+}
+@media only screen and (max-width: 1024px) {
+  .agendar-filtros-wrapper {
+    width: 100%;
+  }
+  .indicador {
+    margin: 15px 0 10px 0 !important;
+    transform: rotate(90deg);
+  }
+  .grupo-atendimento {
+    display: none;
+  }
+  .card-filtros {
+    width: 100%;
+  }
+  .wrapper-fixed {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .bottom-navigation {
+    display: none;
+  }
 }
 </style>
