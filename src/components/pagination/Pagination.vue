@@ -78,7 +78,7 @@ export default class Pagination extends Vue {
   }
 
   get lastDisabled(): boolean {
-    return this.paginaSelecionada === this.totalDePaginas;
+    return this.paginaSelecionada >= this.totalDePaginas;
   }
   voltar(): void {
     if (this.paginaSelecionada > 1) this.paginaSelecionada--;
