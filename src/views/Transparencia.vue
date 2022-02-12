@@ -135,12 +135,9 @@ export default class Transparencia extends Vue {
   }
 
   @Watch("agendamentos", { deep: true })
-  handleAgendamentosChange(newVal: any, oldVal: any): void {
-    console.log(newVal, oldVal);
+  handleAgendamentosChange(newVal: any): void {
     this.setDataAgendamentoTipoExame(newVal);
     this.setDataGrupoDeAtendimento(newVal);
-    console.log(this.dataAgendamentoTipoExame);
-    console.log(this.dataGrupoDeAtendimento);
   }
 
   capitalize(word: string): string {
