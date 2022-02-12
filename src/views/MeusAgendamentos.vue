@@ -128,7 +128,7 @@ export default class MeusAgendamentos extends Vue {
 .agendamentos-wrapper {
   display: grid;
   max-width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-column-gap: 20px;
   grid-row-gap: 20px;
 }
