@@ -33,7 +33,7 @@
                 class="dropdown-icon"
               />
             </template>
-            <b-dropdown-item href="#">Meu Perfil</b-dropdown-item>
+            <b-dropdown-item href="#" disabled>Meu Perfil</b-dropdown-item>
             <b-dropdown-item @click="logout">Sair</b-dropdown-item>
           </b-dropdown>
         </div>
@@ -125,7 +125,7 @@ export default class Agendamento extends Vue {
 
 <style scoped>
 .content {
-  margin-left: 300px;
+  margin-left: 250px;
   width: 100%;
   min-height: 100%;
 }
@@ -217,7 +217,7 @@ export default class Agendamento extends Vue {
   border-right: 1px solid var(--dark-pink);
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 250px;
   max-width: 100%;
 }
 </style>
