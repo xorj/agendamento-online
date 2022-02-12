@@ -183,8 +183,10 @@ export default class Agendamento extends Vue {
 </script>
 
 <style scoped>
-.dark-pink {
+::v-deep .dropdown-menu {
+  border: 1px solid var(--dark-pink) !important;
 }
+
 .bottom-nav-item {
   cursor: pointer;
   color: white;
