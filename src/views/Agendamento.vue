@@ -87,7 +87,7 @@
             :src="require('../assets/calendar-icon-violet.svg')"
             class="calendar-icon pb-1"
           />
-          <p class="mb-0 w-100 px-1 ml-3 bold violet">Agendamento online</p>
+          <p class="mb-0 w-100 px-1 ml-3 violet">Agendamento online</p>
 
           <div class="menu-mobile">
             <div>
@@ -116,6 +116,32 @@
       </div>
       <meus-agendamentos v-if="opcaoSelecionada === 0" />
       <agendar v-if="opcaoSelecionada === 1" />
+    </div>
+    <div class="bottom-navigation">
+      <div class="w-50 bottom-nav-item" @click="selecionar(0)">
+        <div
+          :class="[
+            'meus-agendamentos-icon',
+            'mr-1',
+            opcaoSelecionada === 1 ? 'open' : 'closed',
+          ]"
+        ></div>
+        <p :class="['m-0', opcaoSelecionada === 1 ? '' : 'dark-pink']">
+          Agendamentos
+        </p>
+      </div>
+      <div class="w-50 bottom-nav-item" @click="selecionar(1)">
+        <div
+          :class="[
+            'agendar-icon',
+            'mr-1',
+            opcaoSelecionada === 0 ? 'open' : 'closed',
+          ]"
+        ></div>
+        <p :class="['m-0', opcaoSelecionada === 0 ? '' : 'dark-pink']">
+          Agendar
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -157,6 +183,25 @@ export default class Agendamento extends Vue {
 </script>
 
 <style scoped>
+.dark-pink {
+}
+.bottom-nav-item {
+  cursor: pointer;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bottom-navigation {
+  display: flex;
+  direction: column;
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--violet);
+}
 .content {
   margin-left: 250px;
   width: 100%;
@@ -269,6 +314,9 @@ export default class Agendamento extends Vue {
 }
 @media only screen and (min-width: 1024px) {
   .navbar-agendamento-mobile {
+    display: none;
+  }
+  .bottom-navigation {
     display: none;
   }
 }
