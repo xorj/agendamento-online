@@ -120,7 +120,6 @@ export default class CardLogin extends Vue {
   color: white;
 }
 .card-login {
-  width: 450px;
-  max-width: 80vw;
+  width: 100%;
 }
 </style>
