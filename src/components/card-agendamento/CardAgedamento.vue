@@ -159,6 +159,7 @@ export default class CardAgendamento extends Vue {
 }
 .main-wrapper {
   background-color: white;
-  width: 320px;
+  max-width: 320px;
+  width: auto;
 }
 </style>
