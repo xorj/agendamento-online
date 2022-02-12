@@ -1,0 +1,14 @@
+.btn {
+  font-size: 1rem;
+  box-shadow: none !important;
+  color: white;
+  font-weight: 700;
+}
+.btn-primary {
+  background-color: var(--violet) !important;
+  border-color: var(--violet) !important;
+}
+.btn-secondary {
+  background-color: var(--dark-pink) !important;
+  border-color: var(--dark-pink) !important;
+}
