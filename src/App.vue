@@ -30,6 +30,7 @@
   box-shadow: none !important;
 }
 .btn {
+  font-size: 1rem;
   box-shadow: none !important;
   color: white;
   font-weight: 700;
