@@ -252,7 +252,7 @@ export default class CardDisponibilidade extends Vue {
   font-weight: 700;
 }
 .disponibilidade-card {
-  margin-left: 450px;
+  margin-left: 430px;
 }
 @media only screen and (max-width: 1024px) {
   .disponibilidade-card {
