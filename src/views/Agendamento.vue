@@ -291,6 +291,7 @@ export default class Agendamento extends Vue {
   display: flex;
 }
 .navbar-agendamento {
+  background-color: white;
   position: fixed;
   z-index: 1000;
   height: 100%;
