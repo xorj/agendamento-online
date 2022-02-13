@@ -14,7 +14,7 @@
         <p class="m-0 violet bold comprovante-subtitle">
           {{ dataExame }} - {{ horaExame }}
         </p>
-        <p class="ml-4 green bold comprovante-subtitle">
+        <p class="status-agendamento pl-4 green bold comprovante-subtitle">
           {{ statusAgendamento }}
         </p>
       </div>
@@ -138,6 +138,10 @@ export default class ComprovanteAgendamento extends Vue {
 </script>
 
 <style>
+.comprovante-subtitle {
+  display: inline-block;
+}
+
 .fechar-comprovante {
   background-color: white !important;
   border-color: #ababab !important;
@@ -161,6 +165,7 @@ export default class ComprovanteAgendamento extends Vue {
 }
 .comprovante-modal {
   max-width: 100%;
+  padding: 0 !important;
 }
 .modal-body {
   font-family: "Poppins", Arial, Helvetica, sans-serif !important;
@@ -195,6 +200,9 @@ export default class ComprovanteAgendamento extends Vue {
 }
 
 @media only screen and (max-width: 1024px) {
+  .status-agendamento {
+    margin: 0 !important;
+  }
   .orientacoes {
     margin-top: 10px !important;
   }
@@ -214,8 +222,9 @@ export default class ComprovanteAgendamento extends Vue {
     flex-direction: column;
   }
   .comprovante-sub > .comprovante-subtitle {
-    margin: 0 !important;
+    padding: 0 !important;
     text-align: center;
+    display: block;
   }
   ul {
     list-style-type: none;
