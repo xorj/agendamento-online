@@ -60,7 +60,7 @@ export default class Pagination extends Vue {
     let rangeDir = this.paginaAtual + 1;
 
     while (
-      (rangeEsq > 0 || rangeDir < this.totalDePaginas) &&
+      (rangeEsq > 0 || rangeDir <= this.totalDePaginas) &&
       paginas.length <= 3
     ) {
       if (rangeDir <= this.totalDePaginas && paginas.length <= 3)
@@ -69,7 +69,6 @@ export default class Pagination extends Vue {
       rangeEsq--;
       rangeDir++;
     }
-
     return paginas;
   }
 
