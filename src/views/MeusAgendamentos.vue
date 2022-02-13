@@ -52,7 +52,9 @@ export default class MeusAgendamentos extends Vue {
   paginaAtual = 1;
   totalDePaginas = 2;
   agendamentos: Array<IAgendamento> = [];
-  filtrosLugares = [{ value: null, text: "Local de exame" }];
+  filtrosLugares: Array<{ value: null | string; text: string }> = [
+    { value: null, text: "Local de exame" },
+  ];
 
   @Watch("paginaAtual")
   async handleNewPagina(newValue: number): Promise<void> {
@@ -84,16 +86,18 @@ export default class MeusAgendamentos extends Vue {
     let agendamentos = await this.$store.dispatch("getAgendamentos", {
       usuario_id,
     });
-    this.agendamentos.forEach((agendamento: any) => {
-      let option = {
-        value: agendamento.localizacao,
-        text: agendamento.localizacao,
-      };
-      const equalText = (el: any) => el.text === option.text;
-      if (!this.filtrosLugares.some(equalText)) {
-        this.filtrosLugares.push(option);
+    let locaisAgendamentos: Array<string> = agendamentos.map(
+      (agendamento: any) => {
+        return agendamento.localizacao;
       }
-    });
+    );
+    locaisAgendamentos = [...new Set(locaisAgendamentos)];
+    this.filtrosLugares = [
+      ...this.filtrosLugares,
+      ...locaisAgendamentos.map((local: string) => {
+        return { value: local, text: local };
+      }),
+    ];
   }
   async setTotalPaginas(): Promise<void> {
     const usuario_id = this.$store.state.user.id;
