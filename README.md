@@ -44,6 +44,9 @@ Agendar Exame
 Transparência
 ![image](https://user-images.githubusercontent.com/61337156/154091509-bb0a2ed9-4479-415f-9e43-b8ab13d7b621.png)
 
+![image](https://user-images.githubusercontent.com/61337156/154098807-1b54ff8f-167c-4c84-aba1-f2b9c2558e18.png)
+
+
 ### Mobile:
 
 Cadastro/Login:
